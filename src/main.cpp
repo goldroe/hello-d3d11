@@ -184,10 +184,14 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 
     ////////// create vertex buffer //////////////////////////////////////
     float vertices[] = {
-        -1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        -1.0f, 1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
-        1.0f, -1.0f, 1.0f,  1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+         1.0f,  1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+         1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,  1.0f, 0.0f, 0.0f,
+        -1.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+         1.0f,  1.0f, 1.0f,  0.0f, 0.0f, 1.0f,
+         1.0f, -1.0f, 1.0f,  1.0f, 1.0f, 1.0f,
     };
     UINT vertex_offset = 0;
     UINT vertex_stride = 6 * sizeof(float);
@@ -211,8 +215,24 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 
     /////// create index buffer     //////////////////////////////////////
     uint32_t indices[] = {
+        // front
         0, 1, 2,
         0, 2, 3,
+        // back
+        4, 6, 5,
+        4, 7, 6,
+        // top
+        1, 5, 6,
+        1, 6, 2,
+        // bottom
+        3, 7, 4,
+        3, 4, 0,
+        // left
+        4, 5, 1,
+        4, 1, 0,
+        // right
+        3, 2, 6,
+        3, 6, 7,
     };
 
     ID3D11Buffer *index_buffer = nullptr;
@@ -257,7 +277,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     while (!window_should_close) {
         win32_process_pending_messages();
 
-        XMVECTOR eye = XMVectorSet(0.0f, 0.0f, -2.0f, 1.0f);
+        XMVECTOR eye = XMVectorSet(2.0f, 4.0f, 5.0f, 1.0f);
         XMVECTOR target = XMVectorZero();
         XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
         view = XMMatrixLookAtLH(eye, target, up);
@@ -274,8 +294,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         float back_color[4] = {0.1f, 0.1f, 0.1f, 1.0f};
         device_context->ClearRenderTargetView(render_target, back_color);
 
-        device_context->DrawIndexed(6, 0, 0);
-        device_context->Draw(3, 0);
+        device_context->DrawIndexed(36, 0, 0);
         
         swap_chain->Present(1, 0);
 
