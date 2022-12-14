@@ -1,18 +1,25 @@
 #include <windows.h>
+#include <stdint.h>
 #include <assert.h>
 #include <crtdbg.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <dxgi.h>
+#include <directxmath.h>
 
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 #pragma comment(lib, "user32")
 #pragma comment(lib, "winmm.lib")
 
+using namespace DirectX;
 
-constexpr int WINDOW_WIDTH = 1280;
-constexpr int WINDOW_HEIGHT = 720;
+struct Constant_Buffer {
+    XMMATRIX wvp;
+};
+
+int WINDOW_WIDTH = 1280;
+int WINDOW_HEIGHT = 720;
 bool window_should_close;
 
 LARGE_INTEGER performance_frequency;
@@ -177,44 +184,97 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 
     ////////// create vertex buffer //////////////////////////////////////
     float vertices[] = {
-        0.0f, 0.5f, 0.0f,    1.0f, 0.0f, 0.0f, 
-        0.45f, -0.5, 0.0f,   0.0f, 1.0f, 0.0f,
-        -0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+        1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,  1.0f, 1.0f, 1.0f,
     };
     UINT vertex_offset = 0;
     UINT vertex_stride = 6 * sizeof(float);
     
     ID3D11Buffer *vertex_buffer = nullptr;
-    D3D11_BUFFER_DESC buffer_desc = {};
-    buffer_desc.ByteWidth = sizeof(vertices);
-    buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
-    buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    {
+        D3D11_BUFFER_DESC buffer_desc = {};
+        buffer_desc.ByteWidth = sizeof(vertices);
+        buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
+        buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
-    D3D11_SUBRESOURCE_DATA sr_data = {};
-    sr_data.pSysMem = vertices;
-    sr_data.SysMemPitch = 0;
-    sr_data.SysMemSlicePitch = 0;
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = vertices;
+        sr_data.SysMemPitch = 0;
+        sr_data.SysMemSlicePitch = 0;
 
-    hr = device->CreateBuffer(&buffer_desc, &sr_data, &vertex_buffer);
-    assert(SUCCEEDED(hr));
+        hr = device->CreateBuffer(&buffer_desc, &sr_data, &vertex_buffer);
+        assert(SUCCEEDED(hr));
+    }
     //////////////////////////////////////////////////////////////////////
-   
+
+    /////// create index buffer     //////////////////////////////////////
+    uint32_t indices[] = {
+        0, 1, 2,
+        0, 2, 3,
+    };
+
+    ID3D11Buffer *index_buffer = nullptr;
+    {
+        D3D11_BUFFER_DESC buffer_desc = {.ByteWidth = sizeof(indices), .Usage = D3D11_USAGE_IMMUTABLE, .BindFlags = D3D11_BIND_INDEX_BUFFER};
+        D3D11_SUBRESOURCE_DATA sr_data = {.pSysMem = indices};
+
+        hr = device->CreateBuffer(&buffer_desc, &sr_data, &index_buffer);
+        assert(SUCCEEDED(hr));
+    }
+    //////////////////////////////////////////////////////////////////////
+    
+    /////// create constant buffer ///////////////////////////////////////
+    Constant_Buffer cb;
+    cb.wvp = XMMatrixIdentity();
+    ID3D11Buffer *constant_buffer;
+    {
+        D3D11_BUFFER_DESC buffer_desc = {.ByteWidth = sizeof(Constant_Buffer), .Usage = D3D11_USAGE_DYNAMIC, .BindFlags = D3D11_BIND_CONSTANT_BUFFER, .CPUAccessFlags = D3D11_CPU_ACCESS_WRITE};
+        D3D11_SUBRESOURCE_DATA sr_data = {.pSysMem = &cb};
+
+        hr = device->CreateBuffer(&buffer_desc, &sr_data, &constant_buffer);
+        assert(SUCCEEDED(hr));
+    }
+    //////////////////////////////////////////////////////////////////////
+    
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     device_context->IASetInputLayout(input_layout);
+    device_context->IASetIndexBuffer(index_buffer, DXGI_FORMAT_R32_UINT, 0);
     device_context->IASetVertexBuffers(0, 1, &vertex_buffer, &vertex_stride, &vertex_offset);
     device_context->VSSetShader(vertex_shader, nullptr, 0);
+    device_context->VSSetConstantBuffers(0, 1, &constant_buffer);
     device_context->PSSetShader(pixel_shader, nullptr, 0);
     device_context->RSSetViewports(1, &viewport);
     device_context->OMSetRenderTargets(1, &render_target, nullptr);
 
+    XMMATRIX world = XMMatrixIdentity();
+    XMMATRIX view = XMMatrixIdentity();
+    XMMATRIX proj = XMMatrixPerspectiveFovLH(0.25f * XM_PI, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 1.0f, 1000.0f);
+    
     LARGE_INTEGER last_counter = win32_get_wall_clock();
     
     while (!window_should_close) {
         win32_process_pending_messages();
 
+        XMVECTOR eye = XMVectorSet(0.0f, 0.0f, -2.0f, 1.0f);
+        XMVECTOR target = XMVectorZero();
+        XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+        view = XMMatrixLookAtLH(eye, target, up);
+        cb.wvp = world * view * proj;
+        
+        ///////////// update constant buffer ////////////////////////////////////
+        D3D11_MAPPED_SUBRESOURCE mapped_resource = {};
+        device_context->Map(constant_buffer, 0, D3D11_MAP_WRITE_DISCARD, NULL, &mapped_resource);
+        CopyMemory(mapped_resource.pData, &cb, sizeof(cb));
+        device_context->Unmap(constant_buffer, 0);
+        device_context->VSSetConstantBuffers(0, 1, &constant_buffer);
+        /////////////////////////////////////////////////////////////////////////
+        
         float back_color[4] = {0.1f, 0.1f, 0.1f, 1.0f};
         device_context->ClearRenderTargetView(render_target, back_color);
-        
+
+        device_context->DrawIndexed(6, 0, 0);
         device_context->Draw(3, 0);
         
         swap_chain->Present(1, 0);
