@@ -1,7 +1,11 @@
 #include <windows.h>
+#include <windowsx.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <crtdbg.h>
+#include <vector>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <dxgi.h>
@@ -14,13 +18,190 @@
 
 using namespace DirectX;
 
-struct Constant_Buffer {
-    XMMATRIX wvp;
+struct Material {
+    XMFLOAT4 ambient;
+    XMFLOAT4 diffuse;
+    XMFLOAT4 specular;
 };
+
+struct Directional_Light {
+    XMFLOAT4 ambient;
+    XMFLOAT4 diffuse;
+    XMFLOAT4 specular;
+    
+    XMFLOAT3 direction;
+    float pad;
+};
+
+struct Point_Light {
+    XMFLOAT4 ambient;
+    XMFLOAT4 diffuse;
+    XMFLOAT4 specular;
+    
+    XMFLOAT3 position;
+    float range;
+    
+    XMFLOAT3 att;
+    float pad;
+};
+
+struct Spot_Light {
+    XMFLOAT4 ambient;
+    XMFLOAT4 diffuse;
+    XMFLOAT4 specular;
+    
+    XMFLOAT3 position;
+    float range;
+    
+    XMFLOAT3 direction;
+    float spot;
+    
+    XMFLOAT3 att;
+    float pad;
+};
+
+struct CB_Per_Frame {
+    Directional_Light dir_light;
+    Point_Light point_light;
+    Spot_Light spot_light;
+    XMFLOAT3 eye_pos;
+    float pad;
+};
+
+struct CB_Per_Object {
+    XMMATRIX world;
+    XMMATRIX world_inv_transpose;
+    XMMATRIX wvp;
+    Material material;
+};
+
+struct CB_ {
+    Directional_Light dir_light;
+    XMFLOAT3 eye_pos;
+    float pad;
+    XMMATRIX world;
+    XMMATRIX world_inv_transpose;
+    XMMATRIX wvp;
+    Material material;
+};
+
+struct Input {
+    bool left;
+    bool right;
+    bool up;
+    bool down;
+    POINT last_cursor;
+};
+
+struct Mesh_Data {
+    std::vector<float> vertices;
+    std::vector<uint32_t> indices;
+    XMFLOAT3 origin;
+};
+
+float camera_pitch;
+float camera_yaw;
+float camera_radius = 3.0f;
 
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;
 bool window_should_close;
+
+Mesh_Data load_mesh(const char *filename) {
+    Mesh_Data result = {};
+    FILE *file = fopen(filename, "rb");
+    if(file) {
+        fseek(file, 0 , SEEK_END);
+        long file_size = ftell(file);
+        fseek(file, 0 , SEEK_SET);// needed for next read from beginning of file
+    }
+
+    char buf[128];
+    char *line = buf;
+    float max_x = -100.0f, max_y = -100.0f, max_z = -100.0f;
+    float min_x = 100.0f, min_y = 100.0f, min_z = 100.0f;
+    while (fgets(line, 60, file) != NULL) {
+        char c = *line++;
+        if (c == 'v') {
+            c = *line;
+            if (c == 'n') continue;
+            else if (c== 't') continue;
+            line += 1;
+
+            float x = 0, y = 0, z = 0;
+            float gray = 0.6f;
+            float r = gray, g = gray, b = gray;
+            sscanf(line, "%f %f %f", &x, &y, &z);
+            result.vertices.push_back(x);
+            result.vertices.push_back(y);
+            result.vertices.push_back(z);
+            result.vertices.push_back(r);
+            result.vertices.push_back(g);
+            result.vertices.push_back(b);
+
+            max_x = (x > max_x) ? x : max_x;
+            max_y = (y > max_y) ? y : max_y;
+            max_z = (z > max_z) ? z : max_z;
+            
+            min_x = (x < min_x) ? x : min_x;
+            min_y = (y < min_y) ? y : min_y;
+            min_z = (z < min_z) ? z : min_z;
+        } else if (c == 'f') {
+            line++;
+
+            char *tok = strtok(line, " ");
+            while (tok != NULL) {
+                uint32_t val = (uint32_t)strtol(tok, &tok, 10);
+                val -= 1;
+                //vertex normal indices (no textures)
+                if (strcmp(tok, "//") == 0) {
+                    line += 2;
+                    val = (uint32_t)strtol(tok, &tok, 10);
+                }
+                // vertex texture coord indices
+                else if (strcmp(tok, "/") == 0) {
+                    line += 1;
+                    val = (uint32_t)strtol(tok, &tok, 10);
+                }
+                // simple indices (triangles)
+                else {
+                    result.indices.push_back(val);
+                }
+                line += 1; // skip space
+                tok = strtok(NULL, " ");
+            }
+        }
+        
+        // } else if (c == 'f') {
+        //     char word[10];
+        //     uint32_t index[3];
+        //     uint32_t norm[3];
+        //     sscanf(line, "%s %d//%d %d//%d %d//%d", word, &index[0], &norm[0], &index[1], &norm[1], &index[2], &norm[2]);
+        //     result.indices.push_back(index[0]-1);
+        //     result.indices.push_back(index[1]-1);
+        //     result.indices.push_back(index[2]-1);
+
+        //     do {
+        //         char *tok = strtok(line, " ");
+                
+        //     } while (tok != NULL);
+        // }
+    }
+    fclose(file);
+
+    float x = min_x + ((max_x - min_x) / 2.0f);
+    float y = min_y + ((max_y - min_y) / 2.0f);
+    float z = min_z + ((max_z - min_z) / 2.0f);
+    result.origin = XMFLOAT3(x, y, z);
+    return result;
+}
+
+float clamp(float val, float minval, float maxval) {
+    float result = val;
+    if (val < minval) result = minval;
+    if (val > maxval) result = maxval;
+    return result;
+}
 
 LARGE_INTEGER performance_frequency;
 inline float win32_get_seconds_elapsed(LARGE_INTEGER start, LARGE_INTEGER end) {
@@ -32,6 +213,7 @@ inline LARGE_INTEGER win32_get_wall_clock() {
     QueryPerformanceCounter(&result);
     return result;
 }
+
 
 LRESULT CALLBACK main_window_callback(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {
     LRESULT result = 0;
@@ -47,15 +229,41 @@ LRESULT CALLBACK main_window_callback(HWND window, UINT message, WPARAM wparam, 
     return result;
     
 }
-void win32_process_pending_messages() {
+void win32_process_pending_messages(Input *input) {
     MSG message;
     while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
         if (message.message == WM_QUIT) {
             window_should_close = true;
             break;
+        } else {
+            TranslateMessage(&message);
+            DispatchMessage(&message);
         }
-        TranslateMessage(&message);
-        DispatchMessage(&message);
+
+        switch (message.message) {
+        case WM_MOUSEMOVE: {
+            int x = GET_X_LPARAM(message.lParam);
+            int y = GET_Y_LPARAM(message.lParam);
+
+            if (message.wParam & MK_LBUTTON) {
+                float pitch = (float)(y - input->last_cursor.y);
+                float yaw = (float)(x - input->last_cursor.x);
+                pitch *= XM_PI / 128;
+                yaw *= XM_PI / 128;
+                camera_pitch += pitch;
+                camera_yaw += yaw;
+
+                camera_pitch = clamp(camera_pitch, -XM_PIDIV2, XM_PIDIV2);
+                _RPT2(0, "pitch: %f yaw: %f\n", camera_pitch, camera_yaw);
+            }
+            if (message.wParam & MK_RBUTTON) {
+                camera_radius -= x - input->last_cursor.x;
+            }
+            
+            input->last_cursor.x = x;
+            input->last_cursor.y = y;
+        } break;
+        }
     }
 
     
@@ -64,6 +272,9 @@ void win32_process_pending_messages() {
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, int cmd_show) {
     timeBeginPeriod(1);
     QueryPerformanceFrequency(&performance_frequency);
+    LARGE_INTEGER start_counter;
+    QueryPerformanceCounter(&start_counter);
+    
     WNDCLASS window_class = {};
     window_class.style = CS_HREDRAW|CS_VREDRAW;
     window_class.lpfnWndProc = main_window_callback;
@@ -82,11 +293,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 
     HRESULT hr = S_OK;
     UINT flags = 0;
-    
-    ////// create device and swap chain ///////////////////////////////////
+
+
     IDXGISwapChain *swap_chain;
     ID3D11Device *device;
     ID3D11DeviceContext *device_context;
+
+    ////// create device and swap chain ///////////////////////////////////
 
     DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
     swap_chain_desc.BufferDesc.Width = 0;
@@ -136,7 +349,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 #endif
 
     ID3DBlob *vs_blob = nullptr, *ps_blob = nullptr, *err_blob = nullptr;
-    hr = D3DCompileFromFile(L"shaders.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VS", "vs_5_0", flags, NULL, &vs_blob, &err_blob);
+    hr = D3DCompileFromFile(L"shaders.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "vs_main", "vs_5_0", flags, NULL, &vs_blob, &err_blob);
     if (FAILED(hr)) {
         if (err_blob) {
             OutputDebugStringA((char *)err_blob->GetBufferPointer());
@@ -148,7 +361,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         assert(false);
     }
 
-    hr = D3DCompileFromFile(L"shaders.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS", "ps_5_0", flags, NULL, &ps_blob, &err_blob);
+    hr = D3DCompileFromFile(L"shaders.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "ps_main", "ps_5_0", flags, NULL, &ps_blob, &err_blob);
     if (FAILED(hr)) {
         if (err_blob) {
             OutputDebugStringA((char *)err_blob->GetBufferPointer());
@@ -174,37 +387,95 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     ////////// create input layout ///////////////////////////////////////
     D3D11_INPUT_ELEMENT_DESC input_desc[] = {
         { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-        { "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+        { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
     };
     
     ID3D11InputLayout *input_layout = nullptr;
     hr = device->CreateInputLayout(input_desc, ARRAYSIZE(input_desc), vs_blob->GetBufferPointer(), vs_blob->GetBufferSize(), &input_layout);
     assert(SUCCEEDED(hr));
     //////////////////////////////////////////////////////////////////////
+    
+    // Mesh_Data mesh = {};
+    // mesh = load_mesh("meshes/octahedron.obj");
 
     ////////// create vertex buffer //////////////////////////////////////
+    /*
     float vertices[] = {
-        -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-        -1.0f,  1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-         1.0f,  1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-         1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,
-        -1.0f, -1.0f, 1.0f,  1.0f, 0.0f, 0.0f,
-        -1.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
-         1.0f,  1.0f, 1.0f,  0.0f, 0.0f, 1.0f,
-         1.0f, -1.0f, 1.0f,  1.0f, 1.0f, 1.0f,
+        // positions        
+        -1.0f, -1.0f, -1.0f,   
+        -1.0f,  1.0f, -1.0f,  
+         1.0f,  1.0f, -1.0f,  
+         1.0f, -1.0f, -1.0f,  
+        -1.0f, -1.0f, 1.0f,   
+        -1.0f,  1.0f, 1.0f,   
+         1.0f,  1.0f, 1.0f,   
+         1.0f, -1.0f, 1.0f,   
     };
+    */
     UINT vertex_offset = 0;
     UINT vertex_stride = 6 * sizeof(float);
-    
-    ID3D11Buffer *vertex_buffer = nullptr;
+
+    float vertices[] = {
+        // front
+        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
+         
+        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
+        // back
+        -1.0f, -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 0.0f, 1.0f,
+        -1.0f,  1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+        
+        -1.0f, -1.0f, 1.0f,  0.0f, 0.0f, 1.0f,
+        1.0f,  -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   
+        1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   
+        // top
+        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,
+        -1.0f,  1.0f, 1.0f,   0.0f, 1.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
+
+        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 1.0f, 0.0f,
+        // bottom
+        1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+
+        1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,  0.0f, -1.0f, 0.0f,
+        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f,
+        // left
+        -1.0f, -1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
+        -1.0f,  1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
+
+        -1.0f, -1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, -1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
+        // right
+        1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+        1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+
+        1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+        1.0f, -1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+    };
+
+
+    ID3D11Buffer *vertex_buffer = NULL;
     {
         D3D11_BUFFER_DESC buffer_desc = {};
-        buffer_desc.ByteWidth = sizeof(vertices);
+        buffer_desc.ByteWidth = (UINT)sizeof(vertices);
         buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
         buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
         D3D11_SUBRESOURCE_DATA sr_data = {};
-        sr_data.pSysMem = vertices;
+        sr_data.pSysMem = &vertices;
         sr_data.SysMemPitch = 0;
         sr_data.SysMemSlicePitch = 0;
 
@@ -237,65 +508,151 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
 
     ID3D11Buffer *index_buffer = nullptr;
     {
-        D3D11_BUFFER_DESC buffer_desc = {.ByteWidth = sizeof(indices), .Usage = D3D11_USAGE_IMMUTABLE, .BindFlags = D3D11_BIND_INDEX_BUFFER};
-        D3D11_SUBRESOURCE_DATA sr_data = {.pSysMem = indices};
+        D3D11_BUFFER_DESC buffer_desc = {};
+        buffer_desc.ByteWidth = (UINT)sizeof(indices) * sizeof(uint32_t);
+        buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
+        buffer_desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = &indices[0];
 
         hr = device->CreateBuffer(&buffer_desc, &sr_data, &index_buffer);
         assert(SUCCEEDED(hr));
     }
     //////////////////////////////////////////////////////////////////////
     
+    ID3D11Buffer *frame_cbuffer = nullptr;
+    ID3D11Buffer *object_cbuffer = nullptr;
+    
     /////// create constant buffer ///////////////////////////////////////
-    Constant_Buffer cb;
-    cb.wvp = XMMatrixIdentity();
-    ID3D11Buffer *constant_buffer;
+    CB_Per_Frame cb_frame = {};
     {
-        D3D11_BUFFER_DESC buffer_desc = {.ByteWidth = sizeof(Constant_Buffer), .Usage = D3D11_USAGE_DYNAMIC, .BindFlags = D3D11_BIND_CONSTANT_BUFFER, .CPUAccessFlags = D3D11_CPU_ACCESS_WRITE};
-        D3D11_SUBRESOURCE_DATA sr_data = {.pSysMem = &cb};
-
-        hr = device->CreateBuffer(&buffer_desc, &sr_data, &constant_buffer);
+        D3D11_BUFFER_DESC buffer_desc = {};
+        buffer_desc.ByteWidth = sizeof(cb_frame);
+        buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
+        buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = &cb_frame;
+        hr = device->CreateBuffer(&buffer_desc, &sr_data, &frame_cbuffer);
+        assert(SUCCEEDED(hr));
+    }
+    
+    CB_Per_Object cb_object = {};
+    {
+        D3D11_BUFFER_DESC buffer_desc = {};
+        buffer_desc.ByteWidth = sizeof(cb_object);
+        buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
+        buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = &cb_frame;
+        hr = device->CreateBuffer(&buffer_desc, &sr_data, &object_cbuffer);
         assert(SUCCEEDED(hr));
     }
     //////////////////////////////////////////////////////////////////////
-    
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     device_context->IASetInputLayout(input_layout);
     device_context->IASetIndexBuffer(index_buffer, DXGI_FORMAT_R32_UINT, 0);
     device_context->IASetVertexBuffers(0, 1, &vertex_buffer, &vertex_stride, &vertex_offset);
     device_context->VSSetShader(vertex_shader, nullptr, 0);
-    device_context->VSSetConstantBuffers(0, 1, &constant_buffer);
+    device_context->VSSetConstantBuffers(0, 1, &frame_cbuffer);
+    device_context->VSSetConstantBuffers(0, 1, &object_cbuffer);
     device_context->PSSetShader(pixel_shader, nullptr, 0);
+    device_context->PSSetConstantBuffers(0, 1, &frame_cbuffer);
+    device_context->PSSetConstantBuffers(0, 1, &object_cbuffer);
     device_context->RSSetViewports(1, &viewport);
     device_context->OMSetRenderTargets(1, &render_target, nullptr);
 
     XMMATRIX world = XMMatrixIdentity();
     XMMATRIX view = XMMatrixIdentity();
     XMMATRIX proj = XMMatrixPerspectiveFovLH(0.25f * XM_PI, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 1.0f, 1000.0f);
-    
-    LARGE_INTEGER last_counter = win32_get_wall_clock();
-    
-    while (!window_should_close) {
-        win32_process_pending_messages();
 
-        XMVECTOR eye = XMVectorSet(2.0f, 4.0f, 5.0f, 1.0f);
+    Input input = {};
+    LARGE_INTEGER last_counter = win32_get_wall_clock();
+
+    while (!window_should_close) {
+        win32_process_pending_messages(&input);
+
+        XMMATRIX camera_rot = XMMatrixRotationQuaternion (XMQuaternionRotationRollPitchYaw(camera_pitch, camera_yaw, 0.0f));
+        XMVECTOR camera_origin = XMVectorSet(0.0f, 1.0f, -1.0f * camera_radius, 1.0f);
+        XMVECTOR camera_pos = XMVector3Transform(camera_origin, camera_rot);
+
+        // XMVECTOR target = XMLoadFloat3(&mesh.origin);
         XMVECTOR target = XMVectorZero();
         XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-        view = XMMatrixLookAtLH(eye, target, up);
-        cb.wvp = world * view * proj;
+        view = XMMatrixLookAtLH(camera_pos, target, up);
+
+        Directional_Light dir_light;
+        // dir_light.ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+        // dir_light.diffuse = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+        // dir_light.specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+        dir_light.ambient = XMFLOAT4(0.4f, 0.4f, 0.0f, 1.0f);
+        dir_light.diffuse = XMFLOAT4(0.8f, 0.8f, 0.0f, 1.0f);
+        dir_light.specular = XMFLOAT4(0.73f, 0.73f, 0.73f, 1.0f);
+        dir_light.direction = XMFLOAT3(0.0f, -1.0f, 0.0f);
+        // XMFLOAT4 vec;
+        // XMStoreFloat4(&vec, camera_pos);
+        // cb_frame.eye_pos = XMFLOAT3(vec.x, vec.y, vec.z);
+        // XMStoreFloat3(&cb_frame.dir_light.direction, XMVector3Normalize(target - camera_pos));
+
+        Point_Light point_light;
+        point_light.ambient = XMFLOAT4(0.6f, 0.6f, 0.6f, 1.0f);
+        point_light.diffuse = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
+        point_light.specular = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
+        point_light.att = XMFLOAT3(0.0f, 0.1f, 0.0f);
+        point_light.range = 25.0f;
+
+        point_light.position.x = 5.0f * cosf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        point_light.position.z = 5.0f * sinf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        point_light.position.y = 0.0f;
+
+        Spot_Light spot_light;
+        spot_light.ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+        spot_light.diffuse = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+        spot_light.specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+        XMFLOAT4 v;
+        XMStoreFloat4(&v, camera_pos);
+        spot_light.position = XMFLOAT3(v.x, v.y, v.z);
+        XMStoreFloat3(&spot_light.direction, XMVector3Normalize(target - camera_pos));
+        spot_light.range = 10000.0f;
+        spot_light.spot = 96.0f;
+        spot_light.att = XMFLOAT3(1.0f, 0.0f, 0.0f);
+
+        Material material;
+        material.ambient = XMFLOAT4(0.2f, 0.0f, 0.0f, 1.0f);
+        material.diffuse = XMFLOAT4(0.4f, 0.0f, 0.0f, 1.0f);
+        material.specular = XMFLOAT4(0.8f, 0.0f, 0.0f, 96.0f);
+
+        cb_frame.point_light = point_light;
+        cb_frame.dir_light = dir_light;
+        cb_frame.spot_light = spot_light;
         
+        cb_object.world = world;
+        cb_object.wvp = world * view * proj;
+        cb_object.world_inv_transpose = XMMatrixTranspose(XMMatrixInverse(nullptr, cb_object.world));
+        cb_object.material = material;
+
         ///////////// update constant buffer ////////////////////////////////////
         D3D11_MAPPED_SUBRESOURCE mapped_resource = {};
-        device_context->Map(constant_buffer, 0, D3D11_MAP_WRITE_DISCARD, NULL, &mapped_resource);
-        CopyMemory(mapped_resource.pData, &cb, sizeof(cb));
-        device_context->Unmap(constant_buffer, 0);
-        device_context->VSSetConstantBuffers(0, 1, &constant_buffer);
+        device_context->Map(frame_cbuffer, 0, D3D11_MAP_WRITE_DISCARD, NULL, &mapped_resource);
+        CopyMemory(mapped_resource.pData, &cb_frame, sizeof(cb_frame));
+        device_context->Unmap(frame_cbuffer, 0);
+
+        mapped_resource = {};
+        device_context->Map(object_cbuffer, 0, D3D11_MAP_WRITE_DISCARD, NULL, &mapped_resource);
+        CopyMemory(mapped_resource.pData, &cb_object, sizeof(cb_object));
+        device_context->Unmap(object_cbuffer, 0);
+
+        device_context->VSSetConstantBuffers(0, 1, &frame_cbuffer);
+        device_context->VSSetConstantBuffers(1, 1, &object_cbuffer);
+        device_context->PSSetConstantBuffers(0, 1, &frame_cbuffer);
+        device_context->PSSetConstantBuffers(1, 1, &object_cbuffer);
         /////////////////////////////////////////////////////////////////////////
-        
-        float back_color[4] = {0.1f, 0.1f, 0.1f, 1.0f};
+
+        float back_color[4] = {0.32f, 0.32f, 0.32f, 1.0f};
         device_context->ClearRenderTargetView(render_target, back_color);
 
-        device_context->DrawIndexed(36, 0, 0);
-        
+        device_context->Draw(36, 0);
         swap_chain->Present(1, 0);
 
         float work_seconds_elapsed = win32_get_seconds_elapsed(last_counter, win32_get_wall_clock());
@@ -306,8 +663,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         }
 
         LARGE_INTEGER end_counter = win32_get_wall_clock();
+#if 0
         float seconds_elapsed = 1000.0f * win32_get_seconds_elapsed(last_counter, end_counter);
         _RPT1(0, "seconds: %f\n", seconds_elapsed);
+#endif
         
         last_counter = end_counter;
     }
