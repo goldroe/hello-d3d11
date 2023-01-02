@@ -52,13 +52,18 @@ cbuffer CB_Per_Obj : register(b1) {
     float4x4 world;
     float4x4 world_inv_transpose;
     float4x4 wvp;
+    float4x4 tex_transform;
     Material material;
 };
+
+Texture2D diffuse_map;
+SamplerState sampler_anisotropic;
 
 struct PS_IN {
     float3 posw : POSITION;
     float3 normalw : NORMAL;
     float4 posh : SV_POSITION;
+    float2 tex : TEXCOORD;
 };
 
 void compute_spot_light(
@@ -154,13 +159,13 @@ void compute_directional_light(
     }
 }
 
-PS_IN vs_main(float3 positionl : POSITION, float3 normall : NORMAL) {
+PS_IN vs_main(float3 positionl : POSITION, float3 normall : NORMAL, float2 tex : TEXCOORD) {
     PS_IN vout;
     vout.posw = mul(world, float4(positionl, 1.0f)).xyz;
     vout.normalw = mul(normall, (float3x3)world_inv_transpose);
-
     vout.posh = mul(wvp, float4(positionl, 1.0));
 
+    vout.tex = mul(tex_transform, float4(tex, 0.0f, 1.0f)).xy;
     return vout;
 }
 
@@ -169,6 +174,10 @@ float4 ps_main(PS_IN pin) : SV_TARGET {
 
     float3 to_eyew = normalize(eye_posw - pin.posw);
 
+
+    float4 tex_color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+    tex_color = diffuse_map.Sample(sampler_anisotropic, pin.tex);
+    
     float4 ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
     float4 diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
     float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -190,6 +199,8 @@ float4 ps_main(PS_IN pin) : SV_TARGET {
     specular += S;
     
     float4 lit_color;
-    lit_color = ambient + diffuse + specular;
+    lit_color = tex_color * (ambient + diffuse) + specular;
+    lit_color.a = material.diffuse.a * tex_color.a;
+    /* lit_color = ambient + diffuse + specular; */
     return lit_color;
 }
