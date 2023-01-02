@@ -16,6 +16,9 @@
 #pragma comment(lib, "user32")
 #pragma comment(lib, "winmm.lib")
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 using namespace DirectX;
 
 struct Material {
@@ -72,16 +75,7 @@ struct CB_Per_Object {
     XMMATRIX world;
     XMMATRIX world_inv_transpose;
     XMMATRIX wvp;
-    Material material;
-};
-
-struct CB_ {
-    Directional_Light dir_light;
-    XMFLOAT3 eye_pos;
-    float pad;
-    XMMATRIX world;
-    XMMATRIX world_inv_transpose;
-    XMMATRIX wvp;
+    XMMATRIX tex_transform;
     Material material;
 };
 
@@ -102,6 +96,8 @@ struct Mesh_Data {
 float camera_pitch;
 float camera_yaw;
 float camera_radius = 3.0f;
+
+const int TARGET_FPS = 30;
 
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;
@@ -248,8 +244,8 @@ void win32_process_pending_messages(Input *input) {
             if (message.wParam & MK_LBUTTON) {
                 float pitch = (float)(y - input->last_cursor.y);
                 float yaw = (float)(x - input->last_cursor.x);
-                pitch *= XM_PI / 128;
-                yaw *= XM_PI / 128;
+                pitch *= XM_PI / 200;
+                yaw *= XM_PI / 200;
                 camera_pitch += pitch;
                 camera_yaw += yaw;
 
@@ -257,7 +253,7 @@ void win32_process_pending_messages(Input *input) {
                 _RPT2(0, "pitch: %f yaw: %f\n", camera_pitch, camera_yaw);
             }
             if (message.wParam & MK_RBUTTON) {
-                camera_radius -= x - input->last_cursor.x;
+                camera_radius -= (x - input->last_cursor.x) / 6.0f;
             }
             
             input->last_cursor.x = x;
@@ -282,8 +278,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     window_class.hCursor = LoadCursorA(NULL, IDC_ARROW);
     RegisterClassA(&window_class);
 
-    const int target_fps = 60;
-    const DWORD target_ms_per_frame = (DWORD)(1000.0f * (1.0f / target_fps));
+    const DWORD target_ms_per_frame = (DWORD)(1000.0f * (1.0f / TARGET_FPS));
     HWND window;
     {
         RECT rect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
@@ -300,13 +295,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     ID3D11DeviceContext *device_context;
 
     ////// create device and swap chain ///////////////////////////////////
-
     DXGI_SWAP_CHAIN_DESC swap_chain_desc = {};
     swap_chain_desc.BufferDesc.Width = 0;
     swap_chain_desc.BufferDesc.Height = 0;
     swap_chain_desc.BufferDesc.RefreshRate.Numerator = 60;
     swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
-    swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
     swap_chain_desc.SampleDesc.Count = 1;
     swap_chain_desc.SampleDesc.Quality = 0;
     swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -388,6 +382,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     D3D11_INPUT_ELEMENT_DESC input_desc[] = {
         { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+        { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
     };
     
     ID3D11InputLayout *input_layout = nullptr;
@@ -413,57 +408,57 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     };
     */
     UINT vertex_offset = 0;
-    UINT vertex_stride = 6 * sizeof(float);
+    UINT vertex_stride = 8 * sizeof(float);
 
     float vertices[] = {
         // front
-        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
-        -1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
-        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 1.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
          
-        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,
-        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
-        1.0f, -1.0f, -1.0f,   0.0f, 0.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 0.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
+        1.0f, -1.0f, -1.0f,   0.0f, 0.0f, -1.0f,  1.0f, 0.0f,
         // back
-        -1.0f, -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
-        1.0f,  1.0f, 1.0f,    0.0f, 0.0f, 1.0f,
-        -1.0f,  1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
+        -1.0f,  1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
         
-        -1.0f, -1.0f, 1.0f,  0.0f, 0.0f, 1.0f,
-        1.0f,  -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   
-        1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   
+        -1.0f, -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
+        1.0f,  -1.0f, 1.0f,   0.0f, 0.0f, 1.0f,   1.0f, 0.0f,
+        1.0f, 1.0f, 1.0f,     0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
         // top
-        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,
-        -1.0f,  1.0f, 1.0f,   0.0f, 1.0f, 0.0f,
-        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,   0.0f, 1.0f,
+        -1.0f,  1.0f, 1.0f,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
 
-        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,
-        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
-        1.0f,  1.0f, -1.0f,   0.0f, 1.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0f,   0.0f, 1.0f,
+        1.0f,  1.0f, 1.0f,    0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
+        1.0f,  1.0f, -1.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
         // bottom
-        1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
-        -1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, -1.0f,   0.0f, -1.0f, 0.0f,  0.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,    0.0f, -1.0f, 0.0f,  0.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,  1.0f, 0.0f,
 
-        1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f,
-        -1.0f, -1.0f, 1.0f,  0.0f, -1.0f, 0.0f,
-        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, -1.0f,   0.0f, -1.0f, 0.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,   0.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f,  1.0f, 1.0f,
         // left
-        -1.0f, -1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
-        -1.0f,  1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
-        -1.0f,  1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,   -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
+        -1.0f,  1.0f, 1.0f,   -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
+        -1.0f,  1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
 
-        -1.0f, -1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
-        -1.0f,  1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
-        -1.0f, -1.0f, -1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,   -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
+        -1.0f,  1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f,
         // right
-        1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-        1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-        1.0f,  1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+        1.0f, -1.0f, -1.0f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+        1.0f,  1.0f, -1.0f,   1.0f, 0.0f, 0.0f,   0.0f, 1.0f,
+        1.0f,  1.0f, 1.0f,    1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
 
-        1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-        1.0f,  1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
-        1.0f, -1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+        1.0f, -1.0f, -1.0f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+        1.0f,  1.0f, 1.0f,    1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,    1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
     };
 
 
@@ -567,12 +562,64 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     XMMATRIX view = XMMatrixIdentity();
     XMMATRIX proj = XMMatrixPerspectiveFovLH(0.25f * XM_PI, (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 1.0f, 1000.0f);
 
+    ID3D11Texture2D *texture = nullptr;
+    ID3D11ShaderResourceView *resource_view = nullptr;
+    ID3D11SamplerState *sampler_state = nullptr;
+    {
+        uint8_t *image_data = nullptr;
+        int x, y, n;
+        image_data = stbi_load("textures/toon_crate_2.png", &x, &y, &n, 4);
+        assert(image_data);
+        
+        D3D11_TEXTURE2D_DESC tex_desc = {};
+        tex_desc.Width = x;
+        tex_desc.Height = y;
+        tex_desc.MipLevels = 1;
+        tex_desc.ArraySize = 1;
+        tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+        tex_desc.SampleDesc.Count = 1;
+        tex_desc.SampleDesc.Quality = 0;
+        tex_desc.Usage = D3D11_USAGE_IMMUTABLE;
+        tex_desc.CPUAccessFlags = 0;
+        tex_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = image_data;
+        sr_data.SysMemPitch = x * 4;
+
+        hr = device->CreateTexture2D(&tex_desc, &sr_data, &texture);
+        assert(SUCCEEDED(hr));
+
+        hr = device->CreateShaderResourceView(texture, nullptr, &resource_view);
+        assert(SUCCEEDED(hr));
+
+        D3D11_SAMPLER_DESC sampler_desc = {};
+        sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
+        sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+        sampler_desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+        sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+        sampler_desc.MaxAnisotropy = 4;
+        sampler_desc.MinLOD = -FLT_MAX;
+        sampler_desc.MaxLOD = FLT_MAX;
+        sampler_desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+        // FLOAT                      MipLODBias;
+        // FLOAT                      BorderColor[4];
+        hr =  device->CreateSamplerState(&sampler_desc, &sampler_state);
+        assert(SUCCEEDED(hr));
+    }
+    
     Input input = {};
     LARGE_INTEGER last_counter = win32_get_wall_clock();
 
     while (!window_should_close) {
         win32_process_pending_messages(&input);
 
+        float back_color[4] = {0.42f, 0.51f, 0.54f, 1.0f};
+        device_context->ClearRenderTargetView(render_target, back_color);
+        
+        device_context->PSSetShaderResources(0, 1, &resource_view);
+        device_context->PSSetSamplers(0, 1, &sampler_state);
+        
         XMMATRIX camera_rot = XMMatrixRotationQuaternion (XMQuaternionRotationRollPitchYaw(camera_pitch, camera_yaw, 0.0f));
         XMVECTOR camera_origin = XMVectorSet(0.0f, 1.0f, -1.0f * camera_radius, 1.0f);
         XMVECTOR camera_pos = XMVector3Transform(camera_origin, camera_rot);
@@ -602,8 +649,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         point_light.att = XMFLOAT3(0.0f, 0.1f, 0.0f);
         point_light.range = 25.0f;
 
-        point_light.position.x = 5.0f * cosf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
-        point_light.position.z = 5.0f * sinf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        point_light.position.x = 7.0f * cosf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        point_light.position.z = 7.0f * sinf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
         point_light.position.y = 0.0f;
 
         Spot_Light spot_light;
@@ -618,10 +665,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         spot_light.spot = 96.0f;
         spot_light.att = XMFLOAT3(1.0f, 0.0f, 0.0f);
 
-        Material material;
-        material.ambient = XMFLOAT4(0.2f, 0.0f, 0.0f, 1.0f);
-        material.diffuse = XMFLOAT4(0.4f, 0.0f, 0.0f, 1.0f);
-        material.specular = XMFLOAT4(0.8f, 0.0f, 0.0f, 96.0f);
+        Material material = {};
+        material.ambient = XMFLOAT4(0.6f, 0.6f, 0.6f, 1.0f);
+        material.diffuse = XMFLOAT4(0.6f, 0.6f, 0.6f, 1.0f);
+        material.specular = XMFLOAT4(0.8f, 0.8f, 0.8f, 128.0f);
 
         cb_frame.point_light = point_light;
         cb_frame.dir_light = dir_light;
@@ -630,6 +677,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         cb_object.world = world;
         cb_object.wvp = world * view * proj;
         cb_object.world_inv_transpose = XMMatrixTranspose(XMMatrixInverse(nullptr, cb_object.world));
+        cb_object.tex_transform = XMMatrixIdentity();
         cb_object.material = material;
 
         ///////////// update constant buffer ////////////////////////////////////
@@ -649,12 +697,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         device_context->PSSetConstantBuffers(1, 1, &object_cbuffer);
         /////////////////////////////////////////////////////////////////////////
 
-        float back_color[4] = {0.32f, 0.32f, 0.32f, 1.0f};
-        device_context->ClearRenderTargetView(render_target, back_color);
-
         device_context->Draw(36, 0);
         swap_chain->Present(1, 0);
 
+        
         float work_seconds_elapsed = win32_get_seconds_elapsed(last_counter, win32_get_wall_clock());
         DWORD work_ms = (DWORD)(1000.0f * work_seconds_elapsed);
         if (work_ms < target_ms_per_frame) {
