@@ -1,0 +1,830 @@
+
+c:/Dev/Graphics\build.bat,0
+
+c:/Dev/Graphics\ext\stb_image.h,51635
+#define STBI_INCLUDE_STB_IMAGE_HSTBI_INCLUDE_STB_IMAGE_H127,6381
+#define STBI_VERSION STBI_VERSION371,17137
+   STBI_default = 0, // only used for desired_channelsSTBI_default375,17172
+   STBI_grey       = 1,STBI_grey377,17230
+   STBI_grey_alpha = 2,STBI_grey_alpha378,17255
+   STBI_rgb        = 3,STBI_rgb379,17280
+   STBI_rgb_alpha  = 4STBI_rgb_alpha380,17305
+typedef unsigned char stbi_uc;stbi_uc384,17356
+typedef unsigned short stbi_us;stbi_us385,17388
+#define STBIDEF STBIDEF393,17509
+#define STBIDEF STBIDEF395,17540
+   int      (*read)  (void *user,char *data,int size);   // fill 'data' with 'size' bytes.  return number of bytes actually readread410,17803
+   int      (*read)  (void *user,char *data,int size);   // fill 'data' with 'size' bytes.  return number of bytes actually read__anon2::read410,17803
+   void     (*skip)  (void *user,int n);                 // skip the next 'n' bytes, or 'unget' the last -n bytes if negativeskip411,17933
+   void     (*skip)  (void *user,int n);                 // skip the next 'n' bytes, or 'unget' the last -n bytes if negative__anon2::skip411,17933
+   int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/dataeof412,18060
+   int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/data__anon2::eof412,18060
+} stbi_io_callbacks;stbi_io_callbacks413,18167
+   #define STBI_NO_JPEGSTBI_NO_JPEG551,24738
+   #define STBI_NO_PNGSTBI_NO_PNG554,24800
+   #define STBI_NO_BMPSTBI_NO_BMP557,24861
+   #define STBI_NO_PSDSTBI_NO_PSD560,24922
+   #define STBI_NO_TGASTBI_NO_TGA563,24983
+   #define STBI_NO_GIFSTBI_NO_GIF566,25044
+   #define STBI_NO_HDRSTBI_NO_HDR569,25105
+   #define STBI_NO_PICSTBI_NO_PIC572,25166
+   #define STBI_NO_PNMSTBI_NO_PNM575,25227
+#define STBI_NO_ZLIBSTBI_NO_ZLIB580,25355
+#define STBI_ASSERT(STBI_ASSERT600,25710
+#define STBI_EXTERN STBI_EXTERN604,25774
+#define STBI_EXTERN STBI_EXTERN606,25813
+   #define stbi_inline stbi_inline612,25894
+   #define stbi_inlinestbi_inline614,25935
+   #define stbi_inline stbi_inline617,25977
+      #define STBI_THREAD_LOCAL STBI_THREAD_LOCAL622,26112
+      #define STBI_THREAD_LOCAL STBI_THREAD_LOCAL624,26208
+      #define STBI_THREAD_LOCAL STBI_THREAD_LOCAL626,26284
+      #define STBI_THREAD_LOCAL STBI_THREAD_LOCAL628,26443
+        #define STBI_THREAD_LOCAL STBI_THREAD_LOCAL633,26568
+typedef unsigned short stbi__uint16;stbi__uint16639,26670
+typedef   signed short stbi__int16;stbi__int16640,26708
+typedef unsigned int   stbi__uint32;stbi__uint32641,26745
+typedef   signed int   stbi__int32;stbi__int32642,26783
+typedef uint16_t stbi__uint16;stbi__uint16645,26848
+typedef int16_t  stbi__int16;stbi__int16646,26880
+typedef uint32_t stbi__uint32;stbi__uint32647,26911
+typedef int32_t  stbi__int32;stbi__int32648,26943
+typedef unsigned char validate_uint32[sizeof(stbi__uint32)==4 ? 1 : -1];validate_uint32652,27035
+#define STBI_NOTUSED(STBI_NOTUSED655,27128
+#define STBI_NOTUSED(STBI_NOTUSED657,27171
+#define STBI_HAS_LROTLSTBI_HAS_LROTL661,27240
+   #define stbi_lrot(stbi_lrot665,27297
+   #define stbi_lrot(stbi_lrot667,27344
+#define STBI_MALLOC(STBI_MALLOC679,27791
+#define STBI_REALLOC(STBI_REALLOC680,27837
+#define STBI_FREE(STBI_FREE681,27889
+#define STBI_REALLOC_SIZED(STBI_REALLOC_SIZED685,27970
+#define STBI__X64_TARGETSTBI__X64_TARGET690,28111
+#define STBI__X86_TARGETSTBI__X86_TARGET692,28180
+#define STBI_NO_SIMDSTBI_NO_SIMD703,28795
+#define STBI_NO_SIMDSTBI_NO_SIMD718,29554
+#define STBI_SSE2STBI_SSE2722,29674
+static int stbi__cpuid3(void)stbi__cpuid3729,29804
+static int stbi__cpuid3(void)stbi__cpuid3736,29906
+#define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN748,30051
+static int stbi__sse2_available(void)stbi__sse2_available751,30172
+#define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN759,30335
+static int stbi__sse2_available(void)stbi__sse2_available762,30463
+#undef STBI_NEONSTBI_NEON776,30798
+#define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN782,30884
+#define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN784,30960
+#define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN789,31079
+#define STBI_MAX_DIMENSIONS STBI_MAX_DIMENSIONS793,31165
+   stbi__uint32 img_x, img_y;img_x804,31480
+   stbi__uint32 img_x, img_y;__anon3::img_x804,31480
+   stbi__uint32 img_x, img_y;img_y804,31480
+   stbi__uint32 img_x, img_y;__anon3::img_y804,31480
+   int img_n, img_out_n;img_n805,31511
+   int img_n, img_out_n;__anon3::img_n805,31511
+   int img_n, img_out_n;img_out_n805,31511
+   int img_n, img_out_n;__anon3::img_out_n805,31511
+   stbi_io_callbacks io;io807,31539
+   stbi_io_callbacks io;__anon3::io807,31539
+   void *io_user_data;io_user_data808,31565
+   void *io_user_data;__anon3::io_user_data808,31565
+   int read_from_callbacks;read_from_callbacks810,31591
+   int read_from_callbacks;__anon3::read_from_callbacks810,31591
+   int buflen;buflen811,31620
+   int buflen;__anon3::buflen811,31620
+   stbi_uc buffer_start[128];buffer_start812,31636
+   stbi_uc buffer_start[128];__anon3::buffer_start812,31636
+   int callback_already_read;callback_already_read813,31667
+   int callback_already_read;__anon3::callback_already_read813,31667
+   stbi_uc *img_buffer, *img_buffer_end;img_buffer815,31700
+   stbi_uc *img_buffer, *img_buffer_end;__anon3::img_buffer815,31700
+   stbi_uc *img_buffer, *img_buffer_end;img_buffer_end815,31700
+   stbi_uc *img_buffer, *img_buffer_end;__anon3::img_buffer_end815,31700
+   stbi_uc *img_buffer_original, *img_buffer_original_end;img_buffer_original816,31742
+   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon3::img_buffer_original816,31742
+   stbi_uc *img_buffer_original, *img_buffer_original_end;img_buffer_original_end816,31742
+   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon3::img_buffer_original_end816,31742
+} stbi__context;stbi__context817,31802
+static void stbi__start_mem(stbi__context *s, stbi_uc const *buffer, int len)stbi__start_mem823,31917
+static void stbi__start_callbacks(stbi__context *s, stbi_io_callbacks *c, void *user)stbi__start_callbacks833,32275
+static int stbi__stdio_read(void *user, char *data, int size)stbi__stdio_read847,32688
+static void stbi__stdio_skip(void *user, int n)stbi__stdio_skip852,32809
+static int stbi__stdio_eof(void *user)stbi__stdio_eof862,33101
+static stbi_io_callbacks stbi__stdio_callbacks =stbi__stdio_callbacks867,33205
+static void stbi__start_file(stbi__context *s, FILE *f)stbi__start_file874,33329
+static void stbi__rewind(stbi__context *s)stbi__rewind883,33537
+   STBI_ORDER_RGB,STBI_ORDER_RGB894,33925
+   STBI_ORDER_BGRSTBI_ORDER_BGR895,33945
+   int bits_per_channel;bits_per_channel900,33989
+   int bits_per_channel;__anon5::bits_per_channel900,33989
+   int num_channels;num_channels901,34015
+   int num_channels;__anon5::num_channels901,34015
+   int channel_order;channel_order902,34037
+   int channel_order;__anon5::channel_order902,34037
+} stbi__result_info;stbi__result_info903,34060
+const char *stbi__g_failure_reason;stbi__g_failure_reason967,36905
+STBIDEF const char *stbi_failure_reason(void)stbi_failure_reason969,36944
+static int stbi__err(const char *str)stbi__err975,37067
+static void *stbi__malloc(size_t size)stbi__malloc982,37170
+static int stbi__addsizes_valid(int a, int b)stbi__addsizes_valid999,37844
+static int stbi__mul2sizes_valid(int a, int b)stbi__mul2sizes_valid1011,38234
+static int stbi__mad2sizes_valid(int a, int b, int add)stbi__mad2sizes_valid1021,38640
+static int stbi__mad3sizes_valid(int a, int b, int c, int add)stbi__mad3sizes_valid1028,38869
+static int stbi__mad4sizes_valid(int a, int b, int c, int d, int add)stbi__mad4sizes_valid1036,39221
+static void *stbi__malloc_mad2(int a, int b, int add)stbi__malloc_mad21045,39604
+static void *stbi__malloc_mad3(int a, int b, int c, int add)stbi__malloc_mad31052,39767
+static void *stbi__malloc_mad4(int a, int b, int c, int d, int add)stbi__malloc_mad41059,40014
+   #define stbi__err(stbi__err1071,40368
+   #define stbi__err(stbi__err1073,40435
+   #define stbi__err(stbi__err1075,40483
+#define stbi__errpf(stbi__errpf1078,40534
+#define stbi__errpuc(stbi__errpuc1079,40609
+STBIDEF void stbi_image_free(void *retval_from_stbi_load)stbi_image_free1081,40694
+static int stbi__vertically_flip_on_load_global = 0;stbi__vertically_flip_on_load_global1094,41012
+STBIDEF void stbi_set_flip_vertically_on_load(int flag_true_if_should_flip)stbi_set_flip_vertically_on_load1096,41068
+#define stbi__vertically_flip_on_load stbi__vertically_flip_on_load1102,41249
+static STBI_THREAD_LOCAL int stbi__vertically_flip_on_load_local, stbi__vertically_flip_on_load_set;stbi__vertically_flip_on_load_local1104,41333
+static STBI_THREAD_LOCAL int stbi__vertically_flip_on_load_local, stbi__vertically_flip_on_load_set;stbi__vertically_flip_on_load_set1104,41333
+STBIDEF void stbi_set_flip_vertically_on_load_thread(int flag_true_if_should_flip)stbi_set_flip_vertically_on_load_thread1106,41437
+#define stbi__vertically_flip_on_load stbi__vertically_flip_on_load1112,41640
+static void *stbi__load_main(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri, int bpc)stbi__load_main1117,41919
+static stbi_uc *stbi__convert_16_to_8(stbi__uint16 *orig, int w, int h, int channels)stbi__convert_16_to_81170,43944
+static stbi__uint16 *stbi__convert_8_to_16(stbi_uc *orig, int w, int h, int channels)stbi__convert_8_to_161186,44434
+static void stbi__vertical_flip(void *image, int w, int h, int bytes_per_pixel)stbi__vertical_flip1202,44957
+static void stbi__vertical_flip_slices(void *image, int w, int h, int z, int bytes_per_pixel)stbi__vertical_flip_slices1227,45776
+static unsigned char *stbi__load_and_postprocess_8bit(stbi__context *s, int *x, int *y, int *comp, int req_comp)stbi__load_and_postprocess_8bit1240,46123
+static stbi__uint16 *stbi__load_and_postprocess_16bit(stbi__context *s, int *x, int *y, int *comp, int req_comp)stbi__load_and_postprocess_16bit1266,46990
+static void stbi__float_postprocess(float *result, int *x, int *y, int *comp, int req_comp)stbi__float_postprocess1294,48017
+STBIDEF int stbi_convert_wchar_to_utf8(char *buffer, size_t bufferlen, const wchar_t* input)stbi_convert_wchar_to_utf81311,48821
+static FILE *stbi__fopen(char const *filename, char const *mode)stbi__fopen1317,49030
+STBIDEF stbi_uc *stbi_load(char const *filename, int *x, int *y, int *comp, int req_comp)stbi_load1346,49784
+STBIDEF stbi_uc *stbi_load_from_file(FILE *f, int *x, int *y, int *comp, int req_comp)stbi_load_from_file1356,50113
+STBIDEF stbi__uint16 *stbi_load_from_file_16(FILE *f, int *x, int *y, int *comp, int req_comp)stbi_load_from_file_161369,50528
+STBIDEF stbi_us *stbi_load_16(char const *filename, int *x, int *y, int *comp, int req_comp)stbi_load_161382,50951
+STBIDEF stbi_us *stbi_load_16_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *channels_in_file, int desired_channels)stbi_load_16_from_memory1395,51326
+STBIDEF stbi_us *stbi_load_16_from_callbacks(stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *channels_in_file, int desired_channels)stbi_load_16_from_callbacks1402,51614
+STBIDEF stbi_uc *stbi_load_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp)stbi_load_from_memory1409,51944
+STBIDEF stbi_uc *stbi_load_from_callbacks(stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp)stbi_load_from_callbacks1416,52188
+STBIDEF stbi_uc *stbi_load_gif_from_memory(stbi_uc const *buffer, int len, int **delays, int *x, int *y, int *z, int *comp, int req_comp)stbi_load_gif_from_memory1424,52496
+static float *stbi__loadf_main(stbi__context *s, int *x, int *y, int *comp, int req_comp)stbi__loadf_main1440,52981
+STBIDEF float *stbi_loadf_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp)stbi_loadf_from_memory1458,53626
+STBIDEF float *stbi_loadf_from_callbacks(stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp)stbi_loadf_from_callbacks1465,53854
+STBIDEF float *stbi_loadf(char const *filename, int *x, int *y, int *comp, int req_comp)stbi_loadf1473,54148
+STBIDEF float *stbi_loadf_from_file(FILE *f, int *x, int *y, int *comp, int req_comp)stbi_loadf_from_file1483,54468
+STBIDEF int stbi_is_hdr_from_memory(stbi_uc const *buffer, int len)stbi_is_hdr_from_memory1497,54888
+STBIDEF int      stbi_is_hdr          (char const *filename)stbi_is_hdr1511,55184
+STBIDEF int stbi_is_hdr_from_file(FILE *f)stbi_is_hdr_from_file1522,55413
+STBIDEF int      stbi_is_hdr_from_callbacks(stbi_io_callbacks const *clbk, void *user)stbi_is_hdr_from_callbacks1539,55733
+static float stbi__l2h_gamma=2.2f, stbi__l2h_scale=1.0f;stbi__l2h_gamma1553,56077
+static float stbi__l2h_gamma=2.2f, stbi__l2h_scale=1.0f;stbi__l2h_scale1553,56077
+STBIDEF void   stbi_ldr_to_hdr_gamma(float gamma) { stbi__l2h_gamma = gamma; }stbi_ldr_to_hdr_gamma1555,56137
+STBIDEF void   stbi_ldr_to_hdr_scale(float scale) { stbi__l2h_scale = scale; }stbi_ldr_to_hdr_scale1556,56217
+static float stbi__h2l_gamma_i=1.0f/2.2f, stbi__h2l_scale_i=1.0f;stbi__h2l_gamma_i1559,56307
+static float stbi__h2l_gamma_i=1.0f/2.2f, stbi__h2l_scale_i=1.0f;stbi__h2l_scale_i1559,56307
+STBIDEF void   stbi_hdr_to_ldr_gamma(float gamma) { stbi__h2l_gamma_i = 1/gamma; }stbi_hdr_to_ldr_gamma1561,56376
+STBIDEF void   stbi_hdr_to_ldr_scale(float scale) { stbi__h2l_scale_i = 1/scale; }stbi_hdr_to_ldr_scale1562,56460
+   STBI__SCAN_load=0,STBI__SCAN_load1572,56689
+   STBI__SCAN_type,STBI__SCAN_type1573,56712
+   STBI__SCAN_headerSTBI__SCAN_header1574,56733
+static void stbi__refill_buffer(stbi__context *s)stbi__refill_buffer1577,56761
+stbi_inline static stbi_uc stbi__get8(stbi__context *s)stbi__get81594,57407
+stbi_inline static int stbi__at_eof(stbi__context *s)stbi__at_eof1608,57782
+static void stbi__skip(stbi__context *s, int n)stbi__skip1624,58347
+static int stbi__getn(stbi__context *s, stbi_uc *buffer, int n)stbi__getn1646,58911
+static int stbi__get16be(stbi__context *s)stbi__get16be1674,59657
+static stbi__uint32 stbi__get32be(stbi__context *s)stbi__get32be1684,59874
+static int stbi__get16le(stbi__context *s)stbi__get16le1694,60116
+static stbi__uint32 stbi__get32le(stbi__context *s)stbi__get32le1702,60261
+#define STBI__BYTECAST(STBI__BYTECAST1710,60430
+static stbi_uc stbi__compute_y(int r, int g, int b)stbi__compute_y1726,61309
+static unsigned char *stbi__convert_format(unsigned char *data, int img_n, int req_comp, unsigned int x, unsigned int y)stbi__convert_format1735,61625
+      #define STBI__COMBO(STBI__COMBO1753,62205
+      #define STBI__CASE(STBI__CASE1754,62250
+      #undef STBI__CASESTBI__CASE1772,63935
+static stbi__uint16 stbi__compute_y_16(int r, int g, int b)stbi__compute_y_161783,64088
+static stbi__uint16 *stbi__convert_format16(stbi__uint16 *data, int img_n, int req_comp, unsigned int x, unsigned int y)stbi__convert_format161792,64297
+      #define STBI__COMBO(STBI__COMBO1810,64888
+      #define STBI__CASE(STBI__CASE1811,64933
+      #undef STBI__CASESTBI__CASE1829,66670
+static float   *stbi__ldr_to_hdr(stbi_uc *data, int x, int y, int comp)stbi__ldr_to_hdr1838,66778
+#define stbi__float2int(stbi__float2int1863,67551
+static stbi_uc *stbi__hdr_to_ldr(float   *data, int x, int y, int comp)stbi__hdr_to_ldr1864,67593
+#define FAST_BITS FAST_BITS1916,69606
+   stbi_uc  fast[1 << FAST_BITS];fast1920,69707
+   stbi_uc  fast[1 << FAST_BITS];__anon7::fast1920,69707
+   stbi__uint16 code[256];code1922,69820
+   stbi__uint16 code[256];__anon7::code1922,69820
+   stbi_uc  values[256];values1923,69848
+   stbi_uc  values[256];__anon7::values1923,69848
+   stbi_uc  size[257];size1924,69874
+   stbi_uc  size[257];__anon7::size1924,69874
+   unsigned int maxcode[18];maxcode1925,69898
+   unsigned int maxcode[18];__anon7::maxcode1925,69898
+   int    delta[17];   // old 'firstsymbol' - old 'firstcode'delta1926,69928
+   int    delta[17];   // old 'firstsymbol' - old 'firstcode'__anon7::delta1926,69928
+} stbi__huffman;stbi__huffman1927,69991
+   stbi__context *s;s1931,70030
+   stbi__context *s;__anon8::s1931,70030
+   stbi__huffman huff_dc[4];huff_dc1932,70052
+   stbi__huffman huff_dc[4];__anon8::huff_dc1932,70052
+   stbi__huffman huff_ac[4];huff_ac1933,70082
+   stbi__huffman huff_ac[4];__anon8::huff_ac1933,70082
+   stbi__uint16 dequant[4][64];dequant1934,70112
+   stbi__uint16 dequant[4][64];__anon8::dequant1934,70112
+   stbi__int16 fast_ac[4][1 << FAST_BITS];fast_ac1935,70145
+   stbi__int16 fast_ac[4][1 << FAST_BITS];__anon8::fast_ac1935,70145
+   int img_h_max, img_v_max;img_h_max1938,70234
+   int img_h_max, img_v_max;__anon8::img_h_max1938,70234
+   int img_h_max, img_v_max;img_v_max1938,70234
+   int img_h_max, img_v_max;__anon8::img_v_max1938,70234
+   int img_mcu_x, img_mcu_y;img_mcu_x1939,70264
+   int img_mcu_x, img_mcu_y;__anon8::img_mcu_x1939,70264
+   int img_mcu_x, img_mcu_y;img_mcu_y1939,70264
+   int img_mcu_x, img_mcu_y;__anon8::img_mcu_y1939,70264
+   int img_mcu_w, img_mcu_h;img_mcu_w1940,70294
+   int img_mcu_w, img_mcu_h;__anon8::img_mcu_w1940,70294
+   int img_mcu_w, img_mcu_h;img_mcu_h1940,70294
+   int img_mcu_w, img_mcu_h;__anon8::img_mcu_h1940,70294
+      int id;id1945,70382
+      int id;__anon8::__anon9::id1945,70382
+      int h,v;h1946,70397
+      int h,v;__anon8::__anon9::h1946,70397
+      int h,v;v1946,70397
+      int h,v;__anon8::__anon9::v1946,70397
+      int tq;tq1947,70413
+      int tq;__anon8::__anon9::tq1947,70413
+      int hd,ha;hd1948,70428
+      int hd,ha;__anon8::__anon9::hd1948,70428
+      int hd,ha;ha1948,70428
+      int hd,ha;__anon8::__anon9::ha1948,70428
+      int dc_pred;dc_pred1949,70446
+      int dc_pred;__anon8::__anon9::dc_pred1949,70446
+      int x,y,w2,h2;x1951,70468
+      int x,y,w2,h2;__anon8::__anon9::x1951,70468
+      int x,y,w2,h2;y1951,70468
+      int x,y,w2,h2;__anon8::__anon9::y1951,70468
+      int x,y,w2,h2;w21951,70468
+      int x,y,w2,h2;__anon8::__anon9::w21951,70468
+      int x,y,w2,h2;h21951,70468
+      int x,y,w2,h2;__anon8::__anon9::h21951,70468
+      stbi_uc *data;data1952,70490
+      stbi_uc *data;__anon8::__anon9::data1952,70490
+      void *raw_data, *raw_coeff;raw_data1953,70512
+      void *raw_data, *raw_coeff;__anon8::__anon9::raw_data1953,70512
+      void *raw_data, *raw_coeff;raw_coeff1953,70512
+      void *raw_data, *raw_coeff;__anon8::__anon9::raw_coeff1953,70512
+      stbi_uc *linebuf;linebuf1954,70547
+      stbi_uc *linebuf;__anon8::__anon9::linebuf1954,70547
+      short   *coeff;   // progressive onlycoeff1955,70572
+      short   *coeff;   // progressive only__anon8::__anon9::coeff1955,70572
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blockscoeff_w1956,70617
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon8::__anon9::coeff_w1956,70617
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blockscoeff_h1956,70617
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon8::__anon9::coeff_h1956,70617
+   } img_comp[4];img_comp1957,70687
+   } img_comp[4];__anon8::img_comp1957,70687
+   stbi__uint32   code_buffer; // jpeg entropy-coded buffercode_buffer1959,70708
+   stbi__uint32   code_buffer; // jpeg entropy-coded buffer__anon8::code_buffer1959,70708
+   int            code_bits;   // number of valid bitscode_bits1960,70769
+   int            code_bits;   // number of valid bits__anon8::code_bits1960,70769
+   unsigned char  marker;      // marker seen while filling entropy buffermarker1961,70825
+   unsigned char  marker;      // marker seen while filling entropy buffer__anon8::marker1961,70825
+   int            nomore;      // flag if we saw a marker so must stopnomore1962,70901
+   int            nomore;      // flag if we saw a marker so must stop__anon8::nomore1962,70901
+   int            progressive;progressive1964,70975
+   int            progressive;__anon8::progressive1964,70975
+   int            spec_start;spec_start1965,71007
+   int            spec_start;__anon8::spec_start1965,71007
+   int            spec_end;spec_end1966,71038
+   int            spec_end;__anon8::spec_end1966,71038
+   int            succ_high;succ_high1967,71067
+   int            succ_high;__anon8::succ_high1967,71067
+   int            succ_low;succ_low1968,71097
+   int            succ_low;__anon8::succ_low1968,71097
+   int            eob_run;eob_run1969,71126
+   int            eob_run;__anon8::eob_run1969,71126
+   int            jfif;jfif1970,71154
+   int            jfif;__anon8::jfif1970,71154
+   int            app14_color_transform; // Adobe APP14 tagapp14_color_transform1971,71179
+   int            app14_color_transform; // Adobe APP14 tag__anon8::app14_color_transform1971,71179
+   int            rgb;rgb1972,71240
+   int            rgb;__anon8::rgb1972,71240
+   int scan_n, order[4];scan_n1974,71266
+   int scan_n, order[4];__anon8::scan_n1974,71266
+   int scan_n, order[4];order1974,71266
+   int scan_n, order[4];__anon8::order1974,71266
+   int restart_interval, todo;restart_interval1975,71292
+   int restart_interval, todo;__anon8::restart_interval1975,71292
+   int restart_interval, todo;todo1975,71292
+   int restart_interval, todo;__anon8::todo1975,71292
+   void (*idct_block_kernel)(stbi_uc *out, int out_stride, short data[64]);idct_block_kernel1978,71338
+   void (*idct_block_kernel)(stbi_uc *out, int out_stride, short data[64]);__anon8::idct_block_kernel1978,71338
+   void (*YCbCr_to_RGB_kernel)(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step);YCbCr_to_RGB_kernel1979,71415
+   void (*YCbCr_to_RGB_kernel)(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step);__anon8::YCbCr_to_RGB_kernel1979,71415
+   stbi_uc *(*resample_row_hv_2_kernel)(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs);resample_row_hv_2_kernel1980,71541
+   stbi_uc *(*resample_row_hv_2_kernel)(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs);__anon8::resample_row_hv_2_kernel1980,71541
+} stbi__jpeg;stbi__jpeg1981,71647
+static int stbi__build_huffman(stbi__huffman *h, int *count)stbi__build_huffman1983,71664
+static void stbi__build_fast_ac(stbi__int16 *fast_ac, stbi__huffman *h)stbi__build_fast_ac2027,73023
+static void stbi__grow_buffer_unsafe(stbi__jpeg *j)stbi__grow_buffer_unsafe2052,73909
+static const stbi__uint32 stbi__bmask[17]={0,1,3,7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535};stbi__bmask2071,74435
+stbi_inline static int stbi__jpeg_huff_decode(stbi__jpeg *j, stbi__huffman *h)stbi__jpeg_huff_decode2074,74601
+static const int stbi__jbias[16] = {0,-1,-3,-7,-15,-31,-63,-127,-255,-511,-1023,-2047,-4095,-8191,-16383,-32767};stbi__jbias2124,76166
+stbi_inline static int stbi__extend_receive(stbi__jpeg *j, int n)stbi__extend_receive2128,76388
+stbi_inline static int stbi__jpeg_get_bits(stbi__jpeg *j, int n)stbi__jpeg_get_bits2143,76863
+stbi_inline static int stbi__jpeg_get_bit(stbi__jpeg *j)stbi__jpeg_get_bit2154,77154
+static const stbi_uc stbi__jpeg_dezigzag[64+15] =stbi__jpeg_dezigzag2166,77516
+static int stbi__jpeg_decode_block(stbi__jpeg *j, short data[64], stbi__huffman *hdc, stbi__huffman *hac, stbi__int16 *fac, int b, stbi__uint16 *dequant)stbi__jpeg_decode_block2182,78004
+static int stbi__jpeg_decode_block_prog_dc(stbi__jpeg *j, short data[64], stbi__huffman *hdc, int b)stbi__jpeg_decode_block_prog_dc2234,79765
+static int stbi__jpeg_decode_block_prog_ac(stbi__jpeg *j, short data[64], stbi__huffman *hac, stbi__int16 *fac)stbi__jpeg_decode_block_prog_ac2262,80777
+stbi_inline static stbi_uc stbi__clamp(int x)stbi__clamp2382,84816
+#define stbi__f2f(stbi__f2f2392,85049
+#define stbi__fsh(stbi__fsh2393,85101
+#define STBI__IDCT_1D(STBI__IDCT_1D2396,85178
+static void stbi__idct_block(stbi_uc *out, int out_stride, short data[64])stbi__idct_block2433,86947
+static void stbi__idct_simd(stbi_uc *out, int out_stride, short data[64])stbi__idct_simd2496,89638
+   #define dct_const(dct_const2503,89930
+   #define dct_rot(dct_rot2507,90118
+   #define dct_widen(dct_widen2516,90542
+   #define dct_wadd(dct_wadd2521,90776
+   #define dct_wsub(dct_wsub2526,90937
+   #define dct_bfly32o(dct_bfly32o2531,91141
+   #define dct_interleave8(dct_interleave82542,91633
+   #define dct_interleave16(dct_interleave162548,91811
+   #define dct_pass(dct_pass2553,91945
+#undef dct_constdct_const2660,96520
+#undef dct_rotdct_rot2661,96538
+#undef dct_widendct_widen2662,96554
+#undef dct_wadddct_wadd2663,96572
+#undef dct_wsubdct_wsub2664,96589
+#undef dct_bfly32odct_bfly32o2665,96606
+#undef dct_interleave8dct_interleave82666,96626
+#undef dct_interleave16dct_interleave162667,96650
+#undef dct_passdct_pass2668,96675
+static void stbi__idct_simd(stbi_uc *out, int out_stride, short data[64])stbi__idct_simd2677,96830
+#define dct_long_mul(dct_long_mul2694,97703
+#define dct_long_mac(dct_long_mac2698,97870
+#define dct_widen(dct_widen2702,98060
+#define dct_wadd(dct_wadd2707,98228
+#define dct_wsub(dct_wsub2712,98373
+#define dct_bfly32o(dct_bfly32o2717,98567
+#define dct_pass(dct_pass2725,98828
+#define dct_trn16(dct_trn162785,101060
+#define dct_trn32(dct_trn322786,101150
+#define dct_trn64(dct_trn642787,101332
+#undef dct_trn16dct_trn162807,101986
+#undef dct_trn32dct_trn322808,102004
+#undef dct_trn64dct_trn642809,102022
+#define dct_trn8_8(dct_trn8_82830,102741
+#define dct_trn8_16(dct_trn8_162831,102830
+#define dct_trn8_32(dct_trn8_322832,103006
+#undef dct_trn8_8dct_trn8_82865,104053
+#undef dct_trn8_16dct_trn8_162866,104072
+#undef dct_trn8_32dct_trn8_322867,104092
+#undef dct_long_muldct_long_mul2870,104120
+#undef dct_long_macdct_long_mac2871,104141
+#undef dct_widendct_widen2872,104162
+#undef dct_wadddct_wadd2873,104180
+#undef dct_wsubdct_wsub2874,104197
+#undef dct_bfly32odct_bfly32o2875,104214
+#undef dct_passdct_pass2876,104234
+#define STBI__MARKER_none STBI__MARKER_none2881,104279
+static stbi_uc stbi__get_marker(stbi__jpeg *j)stbi__get_marker2885,104511
+#define STBI__RESTART(STBI__RESTART2898,104962
+static void stbi__jpeg_reset(stbi__jpeg *j)stbi__jpeg_reset2902,105116
+static int stbi__parse_entropy_coded_data(stbi__jpeg *z)stbi__parse_entropy_coded_data2915,105586
+static void stbi__jpeg_dequantize(short *data, stbi__uint16 *dequant)stbi__jpeg_dequantize3039,111476
+static void stbi__jpeg_finish(stbi__jpeg *z)stbi__jpeg_finish3046,111623
+static int stbi__process_marker(stbi__jpeg *z, int m)stbi__process_marker3065,112282
+static int stbi__process_scan_header(stbi__jpeg *z)stbi__process_scan_header3168,115731
+static int stbi__free_jpeg_components(stbi__jpeg *z, int ncomp, int why)stbi__free_jpeg_components3207,117333
+static int stbi__process_frame_header(stbi__jpeg *z, int scan)stbi__process_frame_header3229,117956
+#define stbi__DNL(stbi__DNL3322,122816
+#define stbi__SOI(stbi__SOI3323,122860
+#define stbi__EOI(stbi__EOI3324,122904
+#define stbi__SOF(stbi__SOF3325,122948
+#define stbi__SOS(stbi__SOS3326,123022
+#define stbi__SOF_progressive(stbi__SOF_progressive3328,123068
+static int stbi__decode_jpeg_header(stbi__jpeg *z, int scan)stbi__decode_jpeg_header3330,123120
+static int stbi__decode_jpeg_image(stbi__jpeg *j)stbi__decode_jpeg_image3355,124026
+typedef stbi_uc *(*resample_row_func)(stbi_uc *out, stbi_uc *in0, stbi_uc *in1,resample_row_func3397,125511
+#define stbi__div4(stbi__div43400,125647
+static stbi_uc *resample_row_1(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)resample_row_13402,125695
+static stbi_uc* stbi__resample_row_v_2(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)stbi__resample_row_v_23411,125911
+static stbi_uc*  stbi__resample_row_h_2(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)stbi__resample_row_h_23421,126226
+#define stbi__div16(stbi__div163449,126980
+static stbi_uc *stbi__resample_row_hv_2(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)stbi__resample_row_hv_23451,127029
+static stbi_uc *stbi__resample_row_hv_2_simd(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)stbi__resample_row_hv_2_simd3476,127701
+static stbi_uc *stbi__resample_row_generic(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs)stbi__resample_row_generic3592,132490
+#define stbi__float2fixed(stbi__float2fixed3605,132938
+static void stbi__YCbCr_to_RGB_row(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step)stbi__YCbCr_to_RGB_row3606,133007
+static void stbi__YCbCr_to_RGB_simd(stbi_uc *out, stbi_uc const *y, stbi_uc const *pcb, stbi_uc const *pcr, int count, int step)stbi__YCbCr_to_RGB_simd3632,134005
+static void stbi__setup_jpeg(stbi__jpeg *j)stbi__setup_jpeg3767,139634
+static void stbi__cleanup_jpeg(stbi__jpeg *j)stbi__cleanup_jpeg3789,140318
+   resample_row_func resample;resample3796,140443
+   resample_row_func resample;__anon10::resample3796,140443
+   stbi_uc *line0,*line1;line03797,140475
+   stbi_uc *line0,*line1;__anon10::line03797,140475
+   stbi_uc *line0,*line1;line13797,140475
+   stbi_uc *line0,*line1;__anon10::line13797,140475
+   int hs,vs;   // expansion factor in each axishs3798,140502
+   int hs,vs;   // expansion factor in each axis__anon10::hs3798,140502
+   int hs,vs;   // expansion factor in each axisvs3798,140502
+   int hs,vs;   // expansion factor in each axis__anon10::vs3798,140502
+   int w_lores; // horizontal pixels pre-expansionw_lores3799,140552
+   int w_lores; // horizontal pixels pre-expansion__anon10::w_lores3799,140552
+   int ystep;   // how far through vertical expansion we areystep3800,140604
+   int ystep;   // how far through vertical expansion we are__anon10::ystep3800,140604
+   int ypos;    // which pre-expansion row we're onypos3801,140666
+   int ypos;    // which pre-expansion row we're on__anon10::ypos3801,140666
+} stbi__resample;stbi__resample3802,140719
+static stbi_uc stbi__blinn_8x8(stbi_uc x, stbi_uc y)stbi__blinn_8x83805,140798
+static stbi_uc *load_jpeg_image(stbi__jpeg *z, int *out_x, int *out_y, int *comp, int req_comp)load_jpeg_image3811,140935
+static void *stbi__jpeg_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__jpeg_load3974,147914
+static int stbi__jpeg_test(stbi__context *s)stbi__jpeg_test3987,148341
+static int stbi__jpeg_info_raw(stbi__jpeg *j, int *x, int *y, int *comp)stbi__jpeg_info_raw4000,148678
+static int stbi__jpeg_info(stbi__context *s, int *x, int *y, int *comp)stbi__jpeg_info4012,148991
+#define STBI__ZFAST_BITS STBI__ZFAST_BITS4034,149699
+#define STBI__ZFAST_MASK STBI__ZFAST_MASK4035,149770
+#define STBI__ZNSYMS STBI__ZNSYMS4036,149827
+   stbi__uint16 fast[1 << STBI__ZFAST_BITS];fast4042,150020
+   stbi__uint16 fast[1 << STBI__ZFAST_BITS];__anon11::fast4042,150020
+   stbi__uint16 firstcode[16];firstcode4043,150066
+   stbi__uint16 firstcode[16];__anon11::firstcode4043,150066
+   int maxcode[17];maxcode4044,150098
+   int maxcode[17];__anon11::maxcode4044,150098
+   stbi__uint16 firstsymbol[16];firstsymbol4045,150119
+   stbi__uint16 firstsymbol[16];__anon11::firstsymbol4045,150119
+   stbi_uc  size[STBI__ZNSYMS];size4046,150153
+   stbi_uc  size[STBI__ZNSYMS];__anon11::size4046,150153
+   stbi__uint16 value[STBI__ZNSYMS];value4047,150186
+   stbi__uint16 value[STBI__ZNSYMS];__anon11::value4047,150186
+} stbi__zhuffman;stbi__zhuffman4048,150224
+stbi_inline static int stbi__bitreverse16(int n)stbi__bitreverse164050,150245
+stbi_inline static int stbi__bit_reverse(int v, int bits)stbi__bit_reverse4059,150520
+static int stbi__zbuild_huffman(stbi__zhuffman *z, const stbi_uc *sizelist, int num)stbi__zbuild_huffman4067,150764
+   stbi_uc *zbuffer, *zbuffer_end;zbuffer4122,152566
+   stbi_uc *zbuffer, *zbuffer_end;__anon12::zbuffer4122,152566
+   stbi_uc *zbuffer, *zbuffer_end;zbuffer_end4122,152566
+   stbi_uc *zbuffer, *zbuffer_end;__anon12::zbuffer_end4122,152566
+   int num_bits;num_bits4123,152602
+   int num_bits;__anon12::num_bits4123,152602
+   stbi__uint32 code_buffer;code_buffer4124,152620
+   stbi__uint32 code_buffer;__anon12::code_buffer4124,152620
+   char *zout;zout4126,152652
+   char *zout;__anon12::zout4126,152652
+   char *zout_start;zout_start4127,152668
+   char *zout_start;__anon12::zout_start4127,152668
+   char *zout_end;zout_end4128,152690
+   char *zout_end;__anon12::zout_end4128,152690
+   int   z_expandable;z_expandable4129,152710
+   int   z_expandable;__anon12::z_expandable4129,152710
+   stbi__zhuffman z_length, z_distance;z_length4131,152736
+   stbi__zhuffman z_length, z_distance;__anon12::z_length4131,152736
+   stbi__zhuffman z_length, z_distance;z_distance4131,152736
+   stbi__zhuffman z_length, z_distance;__anon12::z_distance4131,152736
+} stbi__zbuf;stbi__zbuf4132,152777
+stbi_inline static int stbi__zeof(stbi__zbuf *z)stbi__zeof4134,152794
+stbi_inline static stbi_uc stbi__zget8(stbi__zbuf *z)stbi__zget84139,152895
+static void stbi__fill_bits(stbi__zbuf *z)stbi__fill_bits4144,153004
+stbi_inline static unsigned int stbi__zreceive(stbi__zbuf *z, int n)stbi__zreceive4156,153347
+static int stbi__zhuffman_decode_slowpath(stbi__zbuf *a, stbi__zhuffman *z)stbi__zhuffman_decode_slowpath4166,153593
+stbi_inline static int stbi__zhuffman_decode(stbi__zbuf *a, stbi__zhuffman *z)stbi__zhuffman_decode4185,154315
+static int stbi__zexpand(stbi__zbuf *z, char *zout, int n)  // need to make room for n bytesstbi__zexpand4204,154800
+static const int stbi__zlength_base[31] = {stbi__zlength_base4226,155658
+static const int stbi__zlength_extra[31]=stbi__zlength_extra4231,155812
+static const int stbi__zdist_base[32] = { 1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,stbi__zdist_base4234,155925
+static const int stbi__zdist_extra[32] =stbi__zdist_extra4237,156090
+static int stbi__parse_huffman_block(stbi__zbuf *a)stbi__parse_huffman_block4240,156207
+static int stbi__compute_huffman_codes(stbi__zbuf *a)stbi__compute_huffman_codes4282,157723
+static int stbi__parse_uncompressed_block(stbi__zbuf *a)stbi__parse_uncompressed_block4332,159536
+static int stbi__parse_zlib_header(stbi__zbuf *a)stbi__parse_zlib_header4361,160564
+static const stbi_uc stbi__zdefault_length[STBI__ZNSYMS] =stbi__zdefault_length4375,161221
+static const stbi_uc stbi__zdefault_distance[32] =stbi__zdefault_distance4387,161917
+static int stbi__parse_zlib(stbi__zbuf *a, int parse_header)stbi__parse_zlib4404,162454
+static int stbi__do_zlib(stbi__zbuf *a, char *obuf, int olen, int exp, int parse_header)stbi__do_zlib4432,163351
+STBIDEF char *stbi_zlib_decode_malloc_guesssize(const char *buffer, int len, int initial_size, int *outlen)stbi_zlib_decode_malloc_guesssize4442,163609
+STBIDEF char *stbi_zlib_decode_malloc(char const *buffer, int len, int *outlen)stbi_zlib_decode_malloc4458,164120
+STBIDEF char *stbi_zlib_decode_malloc_guesssize_headerflag(const char *buffer, int len, int initial_size, int *outlen, int parse_header)stbi_zlib_decode_malloc_guesssize_headerflag4463,164283
+STBIDEF int stbi_zlib_decode_buffer(char *obuffer, int olen, char const *ibuffer, int ilen)stbi_zlib_decode_buffer4479,164834
+STBIDEF char *stbi_zlib_decode_noheader_malloc(char const *buffer, int len, int *outlen)stbi_zlib_decode_noheader_malloc4490,165158
+STBIDEF int stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const char *ibuffer, int ilen)stbi_zlib_decode_noheader_buffer4506,165634
+   stbi__uint32 length;length4531,166435
+   stbi__uint32 length;__anon13::length4531,166435
+   stbi__uint32 type;type4532,166460
+   stbi__uint32 type;__anon13::type4532,166460
+} stbi__pngchunk;stbi__pngchunk4533,166483
+static stbi__pngchunk stbi__get_chunk_header(stbi__context *s)stbi__get_chunk_header4535,166504
+static int stbi__check_png_header(stbi__context *s)stbi__check_png_header4543,166678
+   stbi__context *s;s4554,166962
+   stbi__context *s;__anon14::s4554,166962
+   stbi_uc *idata, *expanded, *out;idata4555,166984
+   stbi_uc *idata, *expanded, *out;__anon14::idata4555,166984
+   stbi_uc *idata, *expanded, *out;expanded4555,166984
+   stbi_uc *idata, *expanded, *out;__anon14::expanded4555,166984
+   stbi_uc *idata, *expanded, *out;out4555,166984
+   stbi_uc *idata, *expanded, *out;__anon14::out4555,166984
+   int depth;depth4556,167021
+   int depth;__anon14::depth4556,167021
+} stbi__png;stbi__png4557,167036
+   STBI__F_none=0,STBI__F_none4561,167062
+   STBI__F_sub=1,STBI__F_sub4562,167082
+   STBI__F_up=2,STBI__F_up4563,167101
+   STBI__F_avg=3,STBI__F_avg4564,167119
+   STBI__F_paeth=4,STBI__F_paeth4565,167138
+   STBI__F_avg_first,STBI__F_avg_first4567,167243
+   STBI__F_paeth_firstSTBI__F_paeth_first4568,167266
+static stbi_uc first_row_filter[5] =first_row_filter4571,167296
+static int stbi__paeth(int a, int b, int c)stbi__paeth4580,167443
+static const stbi_uc stbi__depth_scale_table[9] = { 0, 0xff, 0x55, 0, 0x11, 0,0,0, 0x01 };stbi__depth_scale_table4591,167670
+static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 raw_len, int out_n, stbi__uint32 x, stbi__uint32 y, int depth, int color)stbi__create_png_image_raw4594,167812
+         #define STBI__CASE(STBI__CASE4675,171186
+         #undef STBI__CASESTBI__CASE4688,172220
+         #define STBI__CASE(STBI__CASE4692,172326
+         #undef STBI__CASESTBI__CASE4705,173431
+static int stbi__create_png_image(stbi__png *a, stbi_uc *image_data, stbi__uint32 image_data_len, int out_n, int depth, int color, int interlaced)stbi__create_png_image4806,177925
+static int stbi__compute_transparency(stbi__png *z, stbi_uc tc[3], int out_n)stbi__compute_transparency4851,179639
+static int stbi__compute_transparency16(stbi__png *z, stbi__uint16 tc[3], int out_n)stbi__compute_transparency164876,180315
+static int stbi__expand_png_palette(stbi__png *a, stbi_uc *palette, int len, int pal_img_n)stbi__expand_png_palette4901,181027
+static int stbi__unpremultiply_on_load_global = 0;stbi__unpremultiply_on_load_global4938,181992
+static int stbi__de_iphone_flag_global = 0;stbi__de_iphone_flag_global4939,182044
+STBIDEF void stbi_set_unpremultiply_on_load(int flag_true_if_should_unpremultiply)stbi_set_unpremultiply_on_load4941,182091
+STBIDEF void stbi_convert_iphone_png_to_rgb(int flag_true_if_should_convert)stbi_convert_iphone_png_to_rgb4946,182259
+#define stbi__unpremultiply_on_load stbi__unpremultiply_on_load4952,182435
+#define stbi__de_iphone_flag stbi__de_iphone_flag4953,182508
+static STBI_THREAD_LOCAL int stbi__unpremultiply_on_load_local, stbi__unpremultiply_on_load_set;stbi__unpremultiply_on_load_local4955,182574
+static STBI_THREAD_LOCAL int stbi__unpremultiply_on_load_local, stbi__unpremultiply_on_load_set;stbi__unpremultiply_on_load_set4955,182574
+static STBI_THREAD_LOCAL int stbi__de_iphone_flag_local, stbi__de_iphone_flag_set;stbi__de_iphone_flag_local4956,182672
+static STBI_THREAD_LOCAL int stbi__de_iphone_flag_local, stbi__de_iphone_flag_set;stbi__de_iphone_flag_set4956,182672
+STBIDEF void stbi__unpremultiply_on_load_thread(int flag_true_if_should_unpremultiply)stbi__unpremultiply_on_load_thread4958,182758
+STBIDEF void stbi_convert_iphone_png_to_rgb_thread(int flag_true_if_should_convert)stbi_convert_iphone_png_to_rgb_thread4964,182970
+#define stbi__unpremultiply_on_load stbi__unpremultiply_on_load4970,183159
+#define stbi__de_iphone_flag stbi__de_iphone_flag4973,183403
+static void stbi__de_iphone(stbi__png *z)stbi__de_iphone4978,183664
+#define STBI__PNG_TYPE(STBI__PNG_TYPE5021,184816
+static int stbi__parse_png_file(stbi__png *z, int scan, int req_comp)stbi__parse_png_file5023,184943
+static void *stbi__do_png(stbi__png *p, int *x, int *y, int *n, int req_comp, stbi__result_info *ri)stbi__do_png5199,193907
+static void *stbi__png_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__png_load5231,195187
+static int stbi__png_test(stbi__context *s)stbi__png_test5238,195388
+static int stbi__png_info_raw(stbi__png *p, int *x, int *y, int *comp)stbi__png_info_raw5246,195522
+static int stbi__png_info(stbi__context *s, int *x, int *y, int *comp)stbi__png_info5258,195819
+static int stbi__png_is16(stbi__context *s)stbi__png_is165265,195976
+static int stbi__bmp_test_raw(stbi__context *s)stbi__bmp_test_raw5282,196276
+static int stbi__bmp_test(stbi__context *s)stbi__bmp_test5297,196718
+static int stbi__high_bit(unsigned int z)stbi__high_bit5306,196885
+static int stbi__bitcount(unsigned int a)stbi__bitcount5318,197217
+static int stbi__shiftsigned(unsigned int v, int shift, int bits)stbi__shiftsigned5331,197716
+   int bpp, offset, hsz;bpp5353,198347
+   int bpp, offset, hsz;__anon16::bpp5353,198347
+   int bpp, offset, hsz;offset5353,198347
+   int bpp, offset, hsz;__anon16::offset5353,198347
+   int bpp, offset, hsz;hsz5353,198347
+   int bpp, offset, hsz;__anon16::hsz5353,198347
+   unsigned int mr,mg,mb,ma, all_a;mr5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon16::mr5354,198373
+   unsigned int mr,mg,mb,ma, all_a;mg5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon16::mg5354,198373
+   unsigned int mr,mg,mb,ma, all_a;mb5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon16::mb5354,198373
+   unsigned int mr,mg,mb,ma, all_a;ma5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon16::ma5354,198373
+   unsigned int mr,mg,mb,ma, all_a;all_a5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon16::all_a5354,198373
+   int extra_read;extra_read5355,198410
+   int extra_read;__anon16::extra_read5355,198410
+} stbi__bmp_data;stbi__bmp_data5356,198430
+static int stbi__bmp_set_mask_defaults(stbi__bmp_data *info, int compress)stbi__bmp_set_mask_defaults5358,198451
+static void *stbi__bmp_parse_header(stbi__context *s, stbi__bmp_data *info)stbi__bmp_parse_header5384,199243
+static void *stbi__bmp_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__bmp_load5467,202758
+static int stbi__tga_get_comp(int bits_per_pixel, int is_grey, int* is_rgb16)stbi__tga_get_comp5661,210026
+static int stbi__tga_info(stbi__context *s, int *x, int *y, int *comp)stbi__tga_info5677,210527
+static int stbi__tga_test(stbi__context *s)stbi__tga_test5742,213119
+static void stbi__tga_read_rgb16(stbi__context *s, stbi_uc* out)stbi__tga_read_rgb165774,214732
+static void *stbi__tga_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__tga_load5793,215537
+static int stbi__psd_test(stbi__context *s)stbi__psd_test6003,223204
+static int stbi__psd_decode_rle(stbi__context *s, stbi_uc *p, int pixelCount)stbi__psd_decode_rle6010,223338
+static void *stbi__psd_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri, int bpc)stbi__psd_load6048,224327
+static int stbi__pic_is4(stbi__context *s,const char *str)stbi__pic_is46258,231857
+static int stbi__pic_test_core(stbi__context *s)stbi__pic_test_core6268,232041
+   stbi_uc size,type,channel;size6286,232309
+   stbi_uc size,type,channel;__anon17::size6286,232309
+   stbi_uc size,type,channel;type6286,232309
+   stbi_uc size,type,channel;__anon17::type6286,232309
+   stbi_uc size,type,channel;channel6286,232309
+   stbi_uc size,type,channel;__anon17::channel6286,232309
+} stbi__pic_packet;stbi__pic_packet6287,232340
+static stbi_uc *stbi__readval(stbi__context *s, int channel, stbi_uc *dest)stbi__readval6289,232363
+static void stbi__copyval(int channel,stbi_uc *dest,const stbi_uc *src)stbi__copyval6303,232689
+static stbi_uc *stbi__pic_load_core(stbi__context *s,int width,int height,int *comp, stbi_uc *result)stbi__pic_load_core6312,232877
+static void *stbi__pic_load(stbi__context *s,int *px,int *py,int *comp,int req_comp, stbi__result_info *ri)stbi__pic_load6422,236546
+static int stbi__pic_test(stbi__context *s)stbi__pic_test6463,237830
+   stbi__int16 prefix;prefix6477,238187
+   stbi__int16 prefix;__anon18::prefix6477,238187
+   stbi_uc first;first6478,238211
+   stbi_uc first;__anon18::first6478,238211
+   stbi_uc suffix;suffix6479,238230
+   stbi_uc suffix;__anon18::suffix6479,238230
+} stbi__gif_lzw;stbi__gif_lzw6480,238250
+   int w,h;w6484,238289
+   int w,h;__anon19::w6484,238289
+   int w,h;h6484,238289
+   int w,h;__anon19::h6484,238289
+   stbi_uc *out;                 // output buffer (always 4 components)out6485,238302
+   stbi_uc *out;                 // output buffer (always 4 components)__anon19::out6485,238302
+   stbi_uc *background;          // The current "background" as far as a gif is concernedbackground6486,238375
+   stbi_uc *background;          // The current "background" as far as a gif is concerned__anon19::background6486,238375
+   stbi_uc *history;history6487,238466
+   stbi_uc *history;__anon19::history6487,238466
+   int flags, bgindex, ratio, transparent, eflags;flags6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon19::flags6488,238488
+   int flags, bgindex, ratio, transparent, eflags;bgindex6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon19::bgindex6488,238488
+   int flags, bgindex, ratio, transparent, eflags;ratio6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon19::ratio6488,238488
+   int flags, bgindex, ratio, transparent, eflags;transparent6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon19::transparent6488,238488
+   int flags, bgindex, ratio, transparent, eflags;eflags6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon19::eflags6488,238488
+   stbi_uc  pal[256][4];pal6489,238540
+   stbi_uc  pal[256][4];__anon19::pal6489,238540
+   stbi_uc lpal[256][4];lpal6490,238566
+   stbi_uc lpal[256][4];__anon19::lpal6490,238566
+   stbi__gif_lzw codes[8192];codes6491,238592
+   stbi__gif_lzw codes[8192];__anon19::codes6491,238592
+   stbi_uc *color_table;color_table6492,238623
+   stbi_uc *color_table;__anon19::color_table6492,238623
+   int parse, step;parse6493,238649
+   int parse, step;__anon19::parse6493,238649
+   int parse, step;step6493,238649
+   int parse, step;__anon19::step6493,238649
+   int lflags;lflags6494,238670
+   int lflags;__anon19::lflags6494,238670
+   int start_x, start_y;start_x6495,238686
+   int start_x, start_y;__anon19::start_x6495,238686
+   int start_x, start_y;start_y6495,238686
+   int start_x, start_y;__anon19::start_y6495,238686
+   int max_x, max_y;max_x6496,238712
+   int max_x, max_y;__anon19::max_x6496,238712
+   int max_x, max_y;max_y6496,238712
+   int max_x, max_y;__anon19::max_y6496,238712
+   int cur_x, cur_y;cur_x6497,238734
+   int cur_x, cur_y;__anon19::cur_x6497,238734
+   int cur_x, cur_y;cur_y6497,238734
+   int cur_x, cur_y;__anon19::cur_y6497,238734
+   int line_size;line_size6498,238756
+   int line_size;__anon19::line_size6498,238756
+   int delay;delay6499,238775
+   int delay;__anon19::delay6499,238775
+} stbi__gif;stbi__gif6500,238790
+static int stbi__gif_test_raw(stbi__context *s)stbi__gif_test_raw6502,238806
+static int stbi__gif_test(stbi__context *s)stbi__gif_test6512,239107
+static void stbi__gif_parse_colortable(stbi__context *s, stbi_uc pal[256][4], int num_entries, int transp)stbi__gif_parse_colortable6519,239230
+static int stbi__gif_header(stbi__context *s, stbi__gif *g, int *comp, int is_info)stbi__gif_header6530,239545
+static int stbi__gif_info_raw(stbi__context *s, int *x, int *y, int *comp)stbi__gif_info_raw6561,240673
+static void stbi__out_gif_code(stbi__gif *g, stbi__uint16 code)stbi__out_gif_code6576,241071
+static stbi_uc *stbi__process_gif_raster(stbi__context *s, stbi__gif *g)stbi__process_gif_raster6613,242044
+static stbi_uc *stbi__gif_load_next(stbi__context *s, stbi__gif *g, int *comp, int req_comp, stbi_uc *two_back)stbi__gif_load_next6700,244939
+static void *stbi__load_gif_main_outofmem(stbi__gif *g, stbi_uc *out, int **delays)stbi__load_gif_main_outofmem6874,251647
+static void *stbi__load_gif_main(stbi__context *s, int **delays, int *x, int *y, int *z, int *comp, int req_comp)stbi__load_gif_main6885,251952
+static void *stbi__gif_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__gif_load6970,254691
+static int stbi__gif_info(stbi__context *s, int *x, int *y, int *comp)stbi__gif_info6999,255541
+static int stbi__hdr_test_core(stbi__context *s, const char *signature)stbi__hdr_test_core7009,255857
+static int stbi__hdr_test(stbi__context* s)stbi__hdr_test7019,256080
+#define STBI__HDR_BUFLEN STBI__HDR_BUFLEN7030,256312
+static char *stbi__hdr_gettoken(stbi__context *z, char *buffer)stbi__hdr_gettoken7031,256344
+static void stbi__hdr_convert(float *output, stbi_uc *input, int req_comp)stbi__hdr_convert7053,256811
+static float *stbi__hdr_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__hdr_load7080,257622
+static int stbi__hdr_info(stbi__context *s, int *x, int *y, int *comp)stbi__hdr_info7211,262435
+static int stbi__bmp_info(stbi__context *s, int *x, int *y, int *comp)stbi__bmp_info7257,263445
+static int stbi__psd_info(stbi__context *s, int *x, int *y, int *comp)stbi__psd_info7281,263936
+static int stbi__psd_is16(stbi__context *s)stbi__psd_is167316,264751
+static int stbi__pic_info(stbi__context *s, int *x, int *y, int *comp)stbi__pic_info7345,265388
+static int      stbi__pnm_test(stbi__context *s)stbi__pnm_test7416,267082
+static void *stbi__pnm_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri)stbi__pnm_load7428,267326
+static int      stbi__pnm_isspace(char c)stbi__pnm_isspace7458,268554
+static void     stbi__pnm_skip_whitespace(stbi__context *s, char *c)stbi__pnm_skip_whitespace7463,268691
+static int      stbi__pnm_isdigit(char c)stbi__pnm_isdigit7477,269044
+static int      stbi__pnm_getinteger(stbi__context *s, char *c)stbi__pnm_getinteger7482,269128
+static int      stbi__pnm_info(stbi__context *s, int *x, int *y, int *comp)stbi__pnm_info7494,269376
+static int stbi__pnm_is16(stbi__context *s)stbi__pnm_is167533,270373
+static int stbi__info_main(stbi__context *s, int *x, int *y, int *comp)stbi__info_main7541,270514
+static int stbi__is_16_main(stbi__context *s)stbi__is_16_main7583,271520
+STBIDEF int stbi_info(char const *filename, int *x, int *y, int *comp)stbi_info7600,271835
+STBIDEF int stbi_info_from_file(FILE *f, int *x, int *y, int *comp)stbi_info_from_file7610,272131
+STBIDEF int stbi_is_16_bit(char const *filename)stbi_is_16_bit7621,272373
+STBIDEF int stbi_is_16_bit_from_file(FILE *f)stbi_is_16_bit_from_file7631,272640
+STBIDEF int stbi_info_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp)stbi_info_from_memory7643,272878
+STBIDEF int stbi_info_from_callbacks(stbi_io_callbacks const *c, void *user, int *x, int *y, int *comp)stbi_info_from_callbacks7650,273078
+STBIDEF int stbi_is_16_bit_from_memory(stbi_uc const *buffer, int len)stbi_is_16_bit_from_memory7657,273315
+STBIDEF int stbi_is_16_bit_from_callbacks(stbi_io_callbacks const *c, void *user)stbi_is_16_bit_from_callbacks7664,273485
+
+c:/Dev/Graphics\run.bat,0
+
+c:/Dev/Graphics\src\main.cpp,5082
+#define STB_IMAGE_IMPLEMENTATIONSTB_IMAGE_IMPLEMENTATION19,380
+struct Material {Material24,463
+    XMFLOAT4 ambient;ambient25,481
+    XMFLOAT4 ambient;Material::ambient25,481
+    XMFLOAT4 diffuse;diffuse26,503
+    XMFLOAT4 diffuse;Material::diffuse26,503
+    XMFLOAT4 specular;specular27,525
+    XMFLOAT4 specular;Material::specular27,525
+struct Directional_Light {Directional_Light30,552
+    XMFLOAT4 ambient;ambient31,579
+    XMFLOAT4 ambient;Directional_Light::ambient31,579
+    XMFLOAT4 diffuse;diffuse32,601
+    XMFLOAT4 diffuse;Directional_Light::diffuse32,601
+    XMFLOAT4 specular;specular33,623
+    XMFLOAT4 specular;Directional_Light::specular33,623
+    XMFLOAT3 direction;direction35,651
+    XMFLOAT3 direction;Directional_Light::direction35,651
+    float pad;pad36,675
+    float pad;Directional_Light::pad36,675
+struct Point_Light {Point_Light39,694
+    XMFLOAT4 ambient;ambient40,715
+    XMFLOAT4 ambient;Point_Light::ambient40,715
+    XMFLOAT4 diffuse;diffuse41,737
+    XMFLOAT4 diffuse;Point_Light::diffuse41,737
+    XMFLOAT4 specular;specular42,759
+    XMFLOAT4 specular;Point_Light::specular42,759
+    XMFLOAT3 position;position44,787
+    XMFLOAT3 position;Point_Light::position44,787
+    float range;range45,810
+    float range;Point_Light::range45,810
+    XMFLOAT3 att;att47,832
+    XMFLOAT3 att;Point_Light::att47,832
+    float pad;pad48,850
+    float pad;Point_Light::pad48,850
+struct Spot_Light {Spot_Light51,869
+    XMFLOAT4 ambient;ambient52,889
+    XMFLOAT4 ambient;Spot_Light::ambient52,889
+    XMFLOAT4 diffuse;diffuse53,911
+    XMFLOAT4 diffuse;Spot_Light::diffuse53,911
+    XMFLOAT4 specular;specular54,933
+    XMFLOAT4 specular;Spot_Light::specular54,933
+    XMFLOAT3 position;position56,961
+    XMFLOAT3 position;Spot_Light::position56,961
+    float range;range57,984
+    float range;Spot_Light::range57,984
+    XMFLOAT3 direction;direction59,1006
+    XMFLOAT3 direction;Spot_Light::direction59,1006
+    float spot;spot60,1030
+    float spot;Spot_Light::spot60,1030
+    XMFLOAT3 att;att62,1051
+    XMFLOAT3 att;Spot_Light::att62,1051
+    float pad;pad63,1069
+    float pad;Spot_Light::pad63,1069
+struct CB_Per_Frame {CB_Per_Frame66,1088
+    Directional_Light dir_light;dir_light67,1110
+    Directional_Light dir_light;CB_Per_Frame::dir_light67,1110
+    Point_Light point_light;point_light68,1143
+    Point_Light point_light;CB_Per_Frame::point_light68,1143
+    Spot_Light spot_light;spot_light69,1172
+    Spot_Light spot_light;CB_Per_Frame::spot_light69,1172
+    XMFLOAT3 eye_pos;eye_pos70,1199
+    XMFLOAT3 eye_pos;CB_Per_Frame::eye_pos70,1199
+    float pad;pad71,1221
+    float pad;CB_Per_Frame::pad71,1221
+struct CB_Per_Object {CB_Per_Object74,1240
+    XMMATRIX world;world75,1263
+    XMMATRIX world;CB_Per_Object::world75,1263
+    XMMATRIX world_inv_transpose;world_inv_transpose76,1283
+    XMMATRIX world_inv_transpose;CB_Per_Object::world_inv_transpose76,1283
+    XMMATRIX wvp;wvp77,1317
+    XMMATRIX wvp;CB_Per_Object::wvp77,1317
+    XMMATRIX tex_transform;tex_transform78,1335
+    XMMATRIX tex_transform;CB_Per_Object::tex_transform78,1335
+    Material material;material79,1363
+    Material material;CB_Per_Object::material79,1363
+struct Input {Input82,1390
+    bool left;left83,1405
+    bool left;Input::left83,1405
+    bool right;right84,1420
+    bool right;Input::right84,1420
+    bool up;up85,1436
+    bool up;Input::up85,1436
+    bool down;down86,1449
+    bool down;Input::down86,1449
+    POINT last_cursor;last_cursor87,1464
+    POINT last_cursor;Input::last_cursor87,1464
+struct Mesh_Data {Mesh_Data90,1491
+    std::vector<float> vertices;vertices91,1510
+    std::vector<float> vertices;Mesh_Data::vertices91,1510
+    std::vector<uint32_t> indices;indices92,1543
+    std::vector<uint32_t> indices;Mesh_Data::indices92,1543
+    XMFLOAT3 origin;origin93,1578
+    XMFLOAT3 origin;Mesh_Data::origin93,1578
+float camera_pitch;camera_pitch96,1603
+float camera_yaw;camera_yaw97,1623
+float camera_radius = 3.0f;camera_radius98,1641
+const int TARGET_FPS = 30;TARGET_FPS100,1670
+int WINDOW_WIDTH = 1280;WINDOW_WIDTH102,1698
+int WINDOW_HEIGHT = 720;WINDOW_HEIGHT103,1723
+bool window_should_close;window_should_close104,1748
+Mesh_Data load_mesh(const char *filename) {load_mesh106,1775
+float clamp(float val, float minval, float maxval) {clamp195,4813
+LARGE_INTEGER performance_frequency;performance_frequency202,4990
+inline float win32_get_seconds_elapsed(LARGE_INTEGER start, LARGE_INTEGER end) {win32_get_seconds_elapsed203,5027
+inline LARGE_INTEGER win32_get_wall_clock() {win32_get_wall_clock207,5228
+LRESULT CALLBACK main_window_callback(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {main_window_callback214,5361
+void win32_process_pending_messages(Input *input) {win32_process_pending_messages228,5687
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, int cmd_show) {WinMain268,6936
