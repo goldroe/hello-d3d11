@@ -11,6 +11,8 @@
 #include <dxgi.h>
 #include <directxmath.h>
 
+#include <stdint.h>
+typedef int32_t int32;
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 #pragma comment(lib, "user32")
@@ -18,6 +20,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#define STB_DS_IMPLEMENTATION
+#include "stb_ds.h"
 
 using namespace DirectX;
 
@@ -97,7 +101,7 @@ float camera_pitch;
 float camera_yaw;
 float camera_radius = 3.0f;
 
-const int TARGET_FPS = 30;
+const int TARGET_FPS = 120;
 
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;
@@ -268,8 +272,6 @@ void win32_process_pending_messages(Input *input) {
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, int cmd_show) {
     timeBeginPeriod(1);
     QueryPerformanceFrequency(&performance_frequency);
-    LARGE_INTEGER start_counter;
-    QueryPerformanceCounter(&start_counter);
     
     WNDCLASS window_class = {};
     window_class.style = CS_HREDRAW|CS_VREDRAW;
@@ -568,7 +570,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
     {
         uint8_t *image_data = nullptr;
         int x, y, n;
-        image_data = stbi_load("textures/toon_crate_2.png", &x, &y, &n, 4);
+        stbi_set_flip_vertically_on_load(true);
+        image_data = stbi_load("textures/FireAnim/Fire001.bmp", &x, &y, &n, 4);
         assert(image_data);
         
         D3D11_TEXTURE2D_DESC tex_desc = {};
@@ -607,14 +610,61 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         hr =  device->CreateSamplerState(&sampler_desc, &sampler_state);
         assert(SUCCEEDED(hr));
     }
+
+    // load fire textures
+    ID3D11ShaderResourceView **fire_views = nullptr;
+    char file_name[64] = "textures/FireAnim/Fire001.bmp";
+    for (int32 i = 1; i <= 120; i++) {
+        sprintf(file_name, "textures/FireAnim/Fire%03d.bmp", i);
+        
+        uint8_t *image_data = nullptr;
+        int x, y, n;
+        stbi_set_flip_vertically_on_load(true);
+        image_data = stbi_load(file_name, &x, &y, &n, 4);
+        assert(image_data);
+        
+        D3D11_TEXTURE2D_DESC tex_desc = {};
+        tex_desc.Width = x;
+        tex_desc.Height = y;
+        tex_desc.MipLevels = 1;
+        tex_desc.ArraySize = 1;
+        tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+        tex_desc.SampleDesc.Count = 1;
+        tex_desc.SampleDesc.Quality = 0;
+        tex_desc.Usage = D3D11_USAGE_IMMUTABLE;
+        tex_desc.CPUAccessFlags = 0;
+        tex_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        
+        D3D11_SUBRESOURCE_DATA sr_data = {};
+        sr_data.pSysMem = image_data;
+        sr_data.SysMemPitch = x * 4;
+
+        hr = device->CreateTexture2D(&tex_desc, &sr_data, &texture);
+        assert(SUCCEEDED(hr));
+        
+        hr = device->CreateShaderResourceView(texture, nullptr, &resource_view);
+        assert(SUCCEEDED(hr));
+
+        arrpush(fire_views, resource_view);
+    }
+
     
     Input input = {};
     LARGE_INTEGER last_counter = win32_get_wall_clock();
+    int fire_index = 0;
+    
+    LARGE_INTEGER start_counter;
+    QueryPerformanceCounter(&start_counter);
 
     while (!window_should_close) {
         win32_process_pending_messages(&input);
 
-        float back_color[4] = {0.42f, 0.51f, 0.54f, 1.0f};
+        fire_index %= 120; // 120 fire animation files
+        _RPT1(0, "INDEX: %d\n", fire_index);
+        resource_view = fire_views[fire_index];
+        
+        // float back_color[4] = {0.42f, 0.51f, 0.54f, 1.0f};
+        float back_color[4] = {0.002f, 0.002f, 0.002f, 1.0f};
         device_context->ClearRenderTargetView(render_target, back_color);
         
         device_context->PSSetShaderResources(0, 1, &resource_view);
@@ -649,8 +699,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         point_light.att = XMFLOAT3(0.0f, 0.1f, 0.0f);
         point_light.range = 25.0f;
 
-        point_light.position.x = 7.0f * cosf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
-        point_light.position.z = 7.0f * sinf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        // point_light.position.x = 10.0f * cosf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
+        // point_light.position.z = 10.0f * sinf(0.7f * win32_get_seconds_elapsed(start_counter, win32_get_wall_clock()));
         point_light.position.y = 0.0f;
 
         Spot_Light spot_light;
@@ -662,13 +712,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         spot_light.position = XMFLOAT3(v.x, v.y, v.z);
         XMStoreFloat3(&spot_light.direction, XMVector3Normalize(target - camera_pos));
         spot_light.range = 10000.0f;
-        spot_light.spot = 96.0f;
+        spot_light.spot = 192.0f;
         spot_light.att = XMFLOAT3(1.0f, 0.0f, 0.0f);
 
         Material material = {};
-        material.ambient = XMFLOAT4(0.6f, 0.6f, 0.6f, 1.0f);
-        material.diffuse = XMFLOAT4(0.6f, 0.6f, 0.6f, 1.0f);
-        material.specular = XMFLOAT4(0.8f, 0.8f, 0.8f, 128.0f);
+        material.ambient = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+        material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+        material.specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
         cb_frame.point_light = point_light;
         cb_frame.dir_light = dir_light;
@@ -709,12 +759,14 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, 
         }
 
         LARGE_INTEGER end_counter = win32_get_wall_clock();
-#if 0
+#if 1
         float seconds_elapsed = 1000.0f * win32_get_seconds_elapsed(last_counter, end_counter);
         _RPT1(0, "seconds: %f\n", seconds_elapsed);
 #endif
         
         last_counter = end_counter;
+        
+        fire_index += 1;
     }
     
     return 0;

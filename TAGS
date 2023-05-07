@@ -1,7 +1,289 @@
 
 c:/Dev/Graphics\build.bat,0
 
-c:/Dev/Graphics\ext\stb_image.h,51635
+c:/Dev/Graphics\ext\stb_ds.h,16265
+#define _CRT_SECURE_NO_WARNINGS_CRT_SECURE_NO_WARNINGS388,14166
+#define INCLUDE_STB_DS_HINCLUDE_STB_DS_H392,14235
+#define arrlen arrlen398,14337
+#define arrlenu arrlenu399,14371
+#define arrput arrput400,14406
+#define arrpush arrpush401,14440
+#define arrpop arrpop402,14474
+#define arrfree arrfree403,14508
+#define arraddn arraddn404,14543
+#define arraddnptr arraddnptr405,14627
+#define arraddnindex arraddnindex406,14665
+#define arrsetlen arrsetlen407,14706
+#define arrlast arrlast408,14743
+#define arrins arrins409,14778
+#define arrinsn arrinsn410,14812
+#define arrdel arrdel411,14847
+#define arrdeln arrdeln412,14881
+#define arrdelswap arrdelswap413,14916
+#define arrcap arrcap414,14954
+#define arrsetcap arrsetcap415,14988
+#define hmput hmput417,15027
+#define hmputs hmputs418,15060
+#define hmget hmget419,15094
+#define hmget_ts hmget_ts420,15127
+#define hmgets hmgets421,15163
+#define hmgetp hmgetp422,15197
+#define hmgetp_ts hmgetp_ts423,15231
+#define hmgetp_null hmgetp_null424,15268
+#define hmgeti hmgeti425,15307
+#define hmgeti_ts hmgeti_ts426,15341
+#define hmdel hmdel427,15378
+#define hmlen hmlen428,15411
+#define hmlenu hmlenu429,15444
+#define hmfree hmfree430,15478
+#define hmdefault hmdefault431,15512
+#define hmdefaults hmdefaults432,15549
+#define shput shput434,15589
+#define shputi shputi435,15622
+#define shputs shputs436,15656
+#define shget shget437,15690
+#define shgeti shgeti438,15723
+#define shgets shgets439,15757
+#define shgetp shgetp440,15791
+#define shgetp_null shgetp_null441,15825
+#define shdel shdel442,15864
+#define shlen shlen443,15897
+#define shlenu shlenu444,15930
+#define shfree shfree445,15964
+#define shdefault shdefault446,15998
+#define shdefaults shdefaults447,16035
+#define sh_new_arena sh_new_arena448,16073
+#define sh_new_strdup sh_new_strdup449,16115
+#define stralloc stralloc451,16160
+#define strreset strreset452,16196
+#define STBDS_REALLOC(STBDS_REALLOC460,16499
+#define STBDS_FREE(STBDS_FREE461,16542
+#define STBDS_NOTUSED(STBDS_NOTUSED465,16607
+#define STBDS_NOTUSED(STBDS_NOTUSED467,16651
+typedef struct stbds_string_arena stbds_string_arena;stbds_string_arena482,17240
+#define STBDS_HAS_TYPEOFSTBDS_HAS_TYPEOF509,18393
+#define STBDS_HAS_LITERAL_ARRAYSTBDS_HAS_LITERAL_ARRAY517,18620
+  #define STBDS_ADDRESSOF(STBDS_ADDRESSOF524,18841
+  #define STBDS_ADDRESSOF(STBDS_ADDRESSOF526,18975
+#define STBDS_ADDRESSOF(STBDS_ADDRESSOF529,19113
+#define STBDS_OFFSETOF(STBDS_OFFSETOF532,19177
+#define stbds_header(stbds_header534,19266
+#define stbds_temp(stbds_temp535,19325
+#define stbds_temp_key(stbds_temp_key536,19373
+#define stbds_arrsetcap(stbds_arrsetcap538,19443
+#define stbds_arrsetlen(stbds_arrsetlen539,19498
+#define stbds_arrcap(stbds_arrcap540,19656
+#define stbds_arrlen(stbds_arrlen541,19726
+#define stbds_arrlenu(stbds_arrlenu542,19806
+#define stbds_arrput(stbds_arrput543,19886
+#define stbds_arrpush stbds_arrpush544,19982
+#define stbds_arrpop(stbds_arrpop545,20039
+#define stbds_arraddn(stbds_arraddn546,20129
+#define stbds_arraddnptr(stbds_arraddnptr547,20248
+#define stbds_arraddnindex(stbds_arraddnindex548,20387
+#define stbds_arraddnoff stbds_arraddnoff549,20532
+#define stbds_arrlast(stbds_arrlast550,20583
+#define stbds_arrfree(stbds_arrfree551,20648
+#define stbds_arrdel(stbds_arrdel552,20750
+#define stbds_arrdeln(stbds_arrdeln553,20803
+#define stbds_arrdelswap(stbds_arrdelswap554,20950
+#define stbds_arrinsn(stbds_arrinsn555,21040
+#define stbds_arrins(stbds_arrins556,21179
+#define stbds_arrmaybegrow(stbds_arrmaybegrow558,21252
+#define stbds_arrgrow(stbds_arrgrow561,21426
+#define stbds_hmput(stbds_hmput563,21519
+#define stbds_hmputs(stbds_hmputs568,21759
+#define stbds_hmgeti(stbds_hmgeti572,21927
+#define stbds_hmgeti_ts(stbds_hmgeti_ts576,22115
+#define stbds_hmgetp(stbds_hmgetp580,22312
+#define stbds_hmgetp_ts(stbds_hmgetp_ts583,22401
+#define stbds_hmdel(stbds_hmdel586,22494
+#define stbds_hmdefault(stbds_hmdefault589,22703
+#define stbds_hmdefaults(stbds_hmdefaults592,22818
+#define stbds_hmfree(stbds_hmfree595,22928
+#define stbds_hmgets(stbds_hmgets598,23045
+#define stbds_hmget(stbds_hmget599,23097
+#define stbds_hmget_ts(stbds_hmget_ts600,23155
+#define stbds_hmlen(stbds_hmlen601,23227
+#define stbds_hmlenu(stbds_hmlenu602,23312
+#define stbds_hmgetp_null(stbds_hmgetp_null603,23397
+#define stbds_shput(stbds_shput605,23491
+#define stbds_shputi(stbds_shputi609,23673
+#define stbds_shputs(stbds_shputs613,23875
+#define stbds_pshput(stbds_pshput618,24208
+#define stbds_shgeti(stbds_shgeti622,24392
+#define stbds_pshgeti(stbds_pshgeti626,24554
+#define stbds_shgetp(stbds_shgetp630,24727
+#define stbds_pshget(stbds_pshget633,24816
+#define stbds_shdel(stbds_shdel636,24905
+#define stbds_pshdel(stbds_pshdel638,25085
+#define stbds_sh_new_arena(stbds_sh_new_arena641,25279
+#define stbds_sh_new_strdup(stbds_sh_new_strdup643,25384
+#define stbds_shdefault(stbds_shdefault646,25492
+#define stbds_shdefaults(stbds_shdefaults647,25545
+#define stbds_shfree stbds_shfree649,25601
+#define stbds_shlenu stbds_shlenu650,25642
+#define stbds_shgets(stbds_shgets652,25685
+#define stbds_shget(stbds_shget653,25734
+#define stbds_shgetp_null(stbds_shgetp_null654,25789
+#define stbds_shlen stbds_shlen655,25881
+  size_t      length;length659,25942
+  size_t      length;__anon1::length659,25942
+  size_t      capacity;capacity660,25965
+  size_t      capacity;__anon1::capacity660,25965
+  void      * hash_table;hash_table661,25990
+  void      * hash_table;__anon1::hash_table661,25990
+  ptrdiff_t   temp;temp662,26017
+  ptrdiff_t   temp;__anon1::temp662,26017
+} stbds_array_header;stbds_array_header663,26038
+typedef struct stbds_string_blockstbds_string_block665,26063
+  struct stbds_string_block *next;next667,26101
+  struct stbds_string_block *next;stbds_string_block::next667,26101
+  char storage[8];storage668,26137
+  char storage[8];stbds_string_block::storage668,26137
+} stbds_string_block;stbds_string_block669,26157
+struct stbds_string_arenastbds_string_arena671,26182
+  stbds_string_block *storage;storage673,26212
+  stbds_string_block *storage;stbds_string_arena::storage673,26212
+  size_t remaining;remaining674,26244
+  size_t remaining;stbds_string_arena::remaining674,26244
+  unsigned char block;block675,26265
+  unsigned char block;stbds_string_arena::block675,26265
+  unsigned char mode;  // this isn't used by the string arena itselfmode676,26289
+  unsigned char mode;  // this isn't used by the string arena itselfstbds_string_arena::mode676,26289
+#define STBDS_HM_BINARY STBDS_HM_BINARY679,26365
+#define STBDS_HM_STRING STBDS_HM_STRING680,26400
+   STBDS_SH_NONE,STBDS_SH_NONE684,26446
+   STBDS_SH_DEFAULT,STBDS_SH_DEFAULT685,26465
+   STBDS_SH_STRDUP,STBDS_SH_STRDUP686,26487
+   STBDS_SH_ARENASTBDS_SH_ARENA687,26508
+template<class T> static T * stbds_arrgrowf_wrapper(T *a, size_t elemsize, size_t addlen, size_t min_cap) {stbds_arrgrowf_wrapper693,26684
+template<class T> static T * stbds_hmget_key_wrapper(T *a, size_t elemsize, void *key, size_t keysize, int mode) {stbds_hmget_key_wrapper696,26864
+template<class T> static T * stbds_hmget_key_ts_wrapper(T *a, size_t elemsize, void *key, size_t keysize, ptrdiff_t *temp, int mode) {stbds_hmget_key_ts_wrapper699,27054
+template<class T> static T * stbds_hmput_default_wrapper(T *a, size_t elemsize) {stbds_hmput_default_wrapper702,27273
+template<class T> static T * stbds_hmput_key_wrapper(T *a, size_t elemsize, void *key, size_t keysize, int mode) {stbds_hmput_key_wrapper705,27415
+template<class T> static T * stbds_hmdel_key_wrapper(T *a, size_t elemsize, void *key, size_t keysize, size_t keyoffset, int mode){stbds_hmdel_key_wrapper708,27605
+template<class T> static T * stbds_shmode_func_wrapper(T *, size_t elemsize, int mode) {stbds_shmode_func_wrapper711,27823
+#define stbds_arrgrowf_wrapper stbds_arrgrowf_wrapper715,27972
+#define stbds_hmget_key_wrapper stbds_hmget_key_wrapper716,28030
+#define stbds_hmget_key_ts_wrapper stbds_hmget_key_ts_wrapper717,28089
+#define stbds_hmput_default_wrapper stbds_hmput_default_wrapper718,28151
+#define stbds_hmput_key_wrapper stbds_hmput_key_wrapper719,28214
+#define stbds_hmdel_key_wrapper stbds_hmdel_key_wrapper720,28273
+#define stbds_shmode_func_wrapper(stbds_shmode_func_wrapper721,28332
+#define STBDS_ASSERT_WAS_UNDEFINEDSTBDS_ASSERT_WAS_UNDEFINED737,28647
+#define STBDS_ASSERT(STBDS_ASSERT738,28683
+#define STBDS_STATS(STBDS_STATS742,28756
+size_t stbds_array_grow;stbds_array_grow743,28784
+size_t stbds_hash_grow;stbds_hash_grow744,28810
+size_t stbds_hash_shrink;stbds_hash_shrink745,28835
+size_t stbds_hash_rebuild;stbds_hash_rebuild746,28862
+size_t stbds_hash_probes;stbds_hash_probes747,28890
+size_t stbds_hash_alloc;stbds_hash_alloc748,28917
+size_t stbds_rehash_probes;stbds_rehash_probes749,28943
+size_t stbds_rehash_items;stbds_rehash_items750,28972
+#define STBDS_STATS(STBDS_STATS752,29007
+void *stbds_arrgrowf(void *a, size_t elemsize, size_t addlen, size_t min_cap)stbds_arrgrowf762,29127
+void stbds_arrfreef(void *a)stbds_arrfreef800,30271
+#define STBDS_BUCKET_LENGTH STBDS_BUCKET_LENGTH810,30432
+#define STBDS_BUCKET_LENGTH STBDS_BUCKET_LENGTH812,30475
+#define STBDS_BUCKET_SHIFT STBDS_BUCKET_SHIFT815,30521
+#define STBDS_BUCKET_MASK STBDS_BUCKET_MASK816,30589
+#define STBDS_CACHE_LINE_SIZE STBDS_CACHE_LINE_SIZE817,30646
+#define STBDS_ALIGN_FWD(STBDS_ALIGN_FWD819,30684
+   size_t    hash [STBDS_BUCKET_LENGTH];hash823,30766
+   size_t    hash [STBDS_BUCKET_LENGTH];__anon3::hash823,30766
+   ptrdiff_t index[STBDS_BUCKET_LENGTH];index824,30808
+   ptrdiff_t index[STBDS_BUCKET_LENGTH];__anon3::index824,30808
+} stbds_hash_bucket; // in 32-bit, this is one 64-byte cache line; in 64-bit, each array is one 64-byte cache linestbds_hash_bucket825,30850
+  char * temp_key; // this MUST be the first field of the hash tabletemp_key829,30987
+  char * temp_key; // this MUST be the first field of the hash table__anon4::temp_key829,30987
+  size_t slot_count;slot_count830,31057
+  size_t slot_count;__anon4::slot_count830,31057
+  size_t used_count;used_count831,31079
+  size_t used_count;__anon4::used_count831,31079
+  size_t used_count_threshold;used_count_threshold832,31101
+  size_t used_count_threshold;__anon4::used_count_threshold832,31101
+  size_t used_count_shrink_threshold;used_count_shrink_threshold833,31133
+  size_t used_count_shrink_threshold;__anon4::used_count_shrink_threshold833,31133
+  size_t tombstone_count;tombstone_count834,31172
+  size_t tombstone_count;__anon4::tombstone_count834,31172
+  size_t tombstone_count_threshold;tombstone_count_threshold835,31199
+  size_t tombstone_count_threshold;__anon4::tombstone_count_threshold835,31199
+  size_t seed;seed836,31236
+  size_t seed;__anon4::seed836,31236
+  size_t slot_count_log2;slot_count_log2837,31252
+  size_t slot_count_log2;__anon4::slot_count_log2837,31252
+  stbds_string_arena string;string838,31279
+  stbds_string_arena string;__anon4::string838,31279
+  stbds_hash_bucket *storage; // not a separate allocation, just 64-byte aligned storage after this structstorage839,31309
+  stbds_hash_bucket *storage; // not a separate allocation, just 64-byte aligned storage after this struct__anon4::storage839,31309
+} stbds_hash_index;stbds_hash_index840,31417
+#define STBDS_INDEX_EMPTY STBDS_INDEX_EMPTY842,31440
+#define STBDS_INDEX_DELETED STBDS_INDEX_DELETED843,31473
+#define STBDS_INDEX_IN_USE(STBDS_INDEX_IN_USE844,31506
+#define STBDS_HASH_EMPTY STBDS_HASH_EMPTY846,31551
+#define STBDS_HASH_DELETED STBDS_HASH_DELETED847,31584
+static size_t stbds_hash_seed=0x31415926;stbds_hash_seed849,31619
+void stbds_rand_seed(size_t seed)stbds_rand_seed851,31664
+#define stbds_load_32_or_64(stbds_load_32_or_64856,31734
+#define STBDS_SIZE_T_BITS STBDS_SIZE_T_BITS861,32069
+static size_t stbds_probe_position(size_t hash, size_t slot_count, size_t slot_log2)stbds_probe_position863,32132
+static size_t stbds_log2(size_t slot_count)stbds_log2874,32395
+static stbds_hash_index *stbds_make_hash_index(size_t slot_count, stbds_hash_index *ot)stbds_make_hash_index884,32542
+#define STBDS_ROTATE_LEFT(STBDS_ROTATE_LEFT1013,38573
+#define STBDS_ROTATE_RIGHT(STBDS_ROTATE_RIGHT1014,38666
+size_t stbds_hash_string(char *str, size_t seed)stbds_hash_string1016,38761
+#define STBDS_SIPHASH_C_ROUNDS STBDS_SIPHASH_C_ROUNDS1034,39280
+#define STBDS_SIPHASH_D_ROUNDS STBDS_SIPHASH_D_ROUNDS1035,39314
+typedef int STBDS_SIPHASH_2_4_can_only_be_used_in_64_bit_builds[sizeof(size_t) == 8 ? 1 : -1];STBDS_SIPHASH_2_4_can_only_be_used_in_64_bit_builds1036,39348
+#define STBDS_SIPHASH_C_ROUNDS STBDS_SIPHASH_C_ROUNDS1040,39486
+#define STBDS_SIPHASH_D_ROUNDS STBDS_SIPHASH_D_ROUNDS1043,39560
+static size_t stbds_siphash_bytes(void *p, size_t len, size_t seed)stbds_siphash_bytes1051,39756
+  #define STBDS_SIPROUND(STBDS_SIPROUND1073,40708
+size_t stbds_hash_bytes(void *p, size_t len, size_t seed)stbds_hash_bytes1116,42499
+static int stbds_is_key_equal(void *a, size_t elemsize, void *key, size_t keysize, size_t keyoffset, int mode, size_t i)stbds_is_key_equal1203,46000
+#define STBDS_HASH_TO_ARR(STBDS_HASH_TO_ARR1211,46332
+#define STBDS_ARR_TO_HASH(STBDS_ARR_TO_HASH1212,46398
+#define stbds_hash_table(stbds_hash_table1214,46466
+void stbds_hmfree_func(void *a, size_t elemsize)stbds_hmfree_func1216,46549
+static ptrdiff_t stbds_hm_find_slot(void *a, size_t elemsize, void *key, size_t keysize, size_t keyoffset, int mode)stbds_hm_find_slot1232,47063
+void * stbds_hmget_key_ts(void *a, size_t elemsize, void *key, size_t keysize, ptrdiff_t *temp, int mode)stbds_hmget_key_ts1281,48854
+void * stbds_hmget_key(void *a, size_t elemsize, void *key, size_t keysize, int mode)stbds_hmget_key1312,49892
+void * stbds_hmput_default(void *a, size_t elemsize)stbds_hmput_default1320,50145
+void *stbds_hmput_key(void *a, size_t elemsize, void *key, size_t keysize, int mode)stbds_hmput_key1337,50685
+void * stbds_shmode_func(size_t elemsize, int mode)stbds_shmode_func1461,55415
+void * stbds_hmdel_key(void *a, size_t elemsize, void *key, size_t keysize, size_t keyoffset, int mode)stbds_hmdel_key1472,55798
+static char *stbds_strdup(char *str)stbds_strdup1540,58687
+#define STBDS_STRING_ARENA_BLOCKSIZE_MIN STBDS_STRING_ARENA_BLOCKSIZE_MIN1551,59030
+#define STBDS_STRING_ARENA_BLOCKSIZE_MAX STBDS_STRING_ARENA_BLOCKSIZE_MAX1554,59128
+char *stbds_stralloc(stbds_string_arena *a, char *str)stbds_stralloc1557,59190
+void stbds_strreset(stbds_string_arena *a)stbds_strreset1605,60977
+#undef STBDS_ASSERTSTBDS_ASSERT1627,61379
+#define STBDS_ASSERT STBDS_ASSERT1630,61430
+typedef struct { int key,b,c,d; } stbds_struct;key1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;__anon5::key1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;b1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;__anon5::b1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;c1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;__anon5::c1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;d1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;__anon5::d1634,61490
+typedef struct { int key,b,c,d; } stbds_struct;stbds_struct1634,61490
+typedef struct { int key[2],b,c,d; } stbds_struct2;key1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;__anon6::key1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;b1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;__anon6::b1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;c1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;__anon6::c1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;d1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;__anon6::d1635,61539
+typedef struct { int key[2],b,c,d; } stbds_struct2;stbds_struct21635,61539
+static char buffer[256];buffer1637,61594
+char *strkey(int n)strkey1638,61620
+void stbds_unit_tests(void)stbds_unit_tests1648,61829
+
+c:/Dev/Graphics\ext\stb_image.h,51712
 #define STBI_INCLUDE_STB_IMAGE_HSTBI_INCLUDE_STB_IMAGE_H127,6381
 #define STBI_VERSION STBI_VERSION371,17137
    STBI_default = 0, // only used for desired_channelsSTBI_default375,17172
@@ -14,11 +296,11 @@ typedef unsigned short stbi_us;stbi_us385,17388
 #define STBIDEF STBIDEF393,17509
 #define STBIDEF STBIDEF395,17540
    int      (*read)  (void *user,char *data,int size);   // fill 'data' with 'size' bytes.  return number of bytes actually readread410,17803
-   int      (*read)  (void *user,char *data,int size);   // fill 'data' with 'size' bytes.  return number of bytes actually read__anon2::read410,17803
+   int      (*read)  (void *user,char *data,int size);   // fill 'data' with 'size' bytes.  return number of bytes actually read__anon8::read410,17803
    void     (*skip)  (void *user,int n);                 // skip the next 'n' bytes, or 'unget' the last -n bytes if negativeskip411,17933
-   void     (*skip)  (void *user,int n);                 // skip the next 'n' bytes, or 'unget' the last -n bytes if negative__anon2::skip411,17933
+   void     (*skip)  (void *user,int n);                 // skip the next 'n' bytes, or 'unget' the last -n bytes if negative__anon8::skip411,17933
    int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/dataeof412,18060
-   int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/data__anon2::eof412,18060
+   int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/data__anon8::eof412,18060
 } stbi_io_callbacks;stbi_io_callbacks413,18167
    #define STBI_NO_JPEGSTBI_NO_JPEG551,24738
    #define STBI_NO_PNGSTBI_NO_PNG554,24800
@@ -76,33 +358,33 @@ static int stbi__sse2_available(void)stbi__sse2_available762,30463
 #define STBI_SIMD_ALIGN(STBI_SIMD_ALIGN789,31079
 #define STBI_MAX_DIMENSIONS STBI_MAX_DIMENSIONS793,31165
    stbi__uint32 img_x, img_y;img_x804,31480
-   stbi__uint32 img_x, img_y;__anon3::img_x804,31480
+   stbi__uint32 img_x, img_y;__anon9::img_x804,31480
    stbi__uint32 img_x, img_y;img_y804,31480
-   stbi__uint32 img_x, img_y;__anon3::img_y804,31480
+   stbi__uint32 img_x, img_y;__anon9::img_y804,31480
    int img_n, img_out_n;img_n805,31511
-   int img_n, img_out_n;__anon3::img_n805,31511
+   int img_n, img_out_n;__anon9::img_n805,31511
    int img_n, img_out_n;img_out_n805,31511
-   int img_n, img_out_n;__anon3::img_out_n805,31511
+   int img_n, img_out_n;__anon9::img_out_n805,31511
    stbi_io_callbacks io;io807,31539
-   stbi_io_callbacks io;__anon3::io807,31539
+   stbi_io_callbacks io;__anon9::io807,31539
    void *io_user_data;io_user_data808,31565
-   void *io_user_data;__anon3::io_user_data808,31565
+   void *io_user_data;__anon9::io_user_data808,31565
    int read_from_callbacks;read_from_callbacks810,31591
-   int read_from_callbacks;__anon3::read_from_callbacks810,31591
+   int read_from_callbacks;__anon9::read_from_callbacks810,31591
    int buflen;buflen811,31620
-   int buflen;__anon3::buflen811,31620
+   int buflen;__anon9::buflen811,31620
    stbi_uc buffer_start[128];buffer_start812,31636
-   stbi_uc buffer_start[128];__anon3::buffer_start812,31636
+   stbi_uc buffer_start[128];__anon9::buffer_start812,31636
    int callback_already_read;callback_already_read813,31667
-   int callback_already_read;__anon3::callback_already_read813,31667
+   int callback_already_read;__anon9::callback_already_read813,31667
    stbi_uc *img_buffer, *img_buffer_end;img_buffer815,31700
-   stbi_uc *img_buffer, *img_buffer_end;__anon3::img_buffer815,31700
+   stbi_uc *img_buffer, *img_buffer_end;__anon9::img_buffer815,31700
    stbi_uc *img_buffer, *img_buffer_end;img_buffer_end815,31700
-   stbi_uc *img_buffer, *img_buffer_end;__anon3::img_buffer_end815,31700
+   stbi_uc *img_buffer, *img_buffer_end;__anon9::img_buffer_end815,31700
    stbi_uc *img_buffer_original, *img_buffer_original_end;img_buffer_original816,31742
-   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon3::img_buffer_original816,31742
+   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon9::img_buffer_original816,31742
    stbi_uc *img_buffer_original, *img_buffer_original_end;img_buffer_original_end816,31742
-   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon3::img_buffer_original_end816,31742
+   stbi_uc *img_buffer_original, *img_buffer_original_end;__anon9::img_buffer_original_end816,31742
 } stbi__context;stbi__context817,31802
 static void stbi__start_mem(stbi__context *s, stbi_uc const *buffer, int len)stbi__start_mem823,31917
 static void stbi__start_callbacks(stbi__context *s, stbi_io_callbacks *c, void *user)stbi__start_callbacks833,32275
@@ -115,11 +397,11 @@ static void stbi__rewind(stbi__context *s)stbi__rewind883,33537
    STBI_ORDER_RGB,STBI_ORDER_RGB894,33925
    STBI_ORDER_BGRSTBI_ORDER_BGR895,33945
    int bits_per_channel;bits_per_channel900,33989
-   int bits_per_channel;__anon5::bits_per_channel900,33989
+   int bits_per_channel;__anon11::bits_per_channel900,33989
    int num_channels;num_channels901,34015
-   int num_channels;__anon5::num_channels901,34015
+   int num_channels;__anon11::num_channels901,34015
    int channel_order;channel_order902,34037
-   int channel_order;__anon5::channel_order902,34037
+   int channel_order;__anon11::channel_order902,34037
 } stbi__result_info;stbi__result_info903,34060
 const char *stbi__g_failure_reason;stbi__g_failure_reason967,36905
 STBIDEF const char *stbi_failure_reason(void)stbi_failure_reason969,36944
@@ -210,118 +492,118 @@ static float   *stbi__ldr_to_hdr(stbi_uc *data, int x, int y, int comp)stbi__ld
 static stbi_uc *stbi__hdr_to_ldr(float   *data, int x, int y, int comp)stbi__hdr_to_ldr1864,67593
 #define FAST_BITS FAST_BITS1916,69606
    stbi_uc  fast[1 << FAST_BITS];fast1920,69707
-   stbi_uc  fast[1 << FAST_BITS];__anon7::fast1920,69707
+   stbi_uc  fast[1 << FAST_BITS];__anon13::fast1920,69707
    stbi__uint16 code[256];code1922,69820
-   stbi__uint16 code[256];__anon7::code1922,69820
+   stbi__uint16 code[256];__anon13::code1922,69820
    stbi_uc  values[256];values1923,69848
-   stbi_uc  values[256];__anon7::values1923,69848
+   stbi_uc  values[256];__anon13::values1923,69848
    stbi_uc  size[257];size1924,69874
-   stbi_uc  size[257];__anon7::size1924,69874
+   stbi_uc  size[257];__anon13::size1924,69874
    unsigned int maxcode[18];maxcode1925,69898
-   unsigned int maxcode[18];__anon7::maxcode1925,69898
+   unsigned int maxcode[18];__anon13::maxcode1925,69898
    int    delta[17];   // old 'firstsymbol' - old 'firstcode'delta1926,69928
-   int    delta[17];   // old 'firstsymbol' - old 'firstcode'__anon7::delta1926,69928
+   int    delta[17];   // old 'firstsymbol' - old 'firstcode'__anon13::delta1926,69928
 } stbi__huffman;stbi__huffman1927,69991
    stbi__context *s;s1931,70030
-   stbi__context *s;__anon8::s1931,70030
+   stbi__context *s;__anon14::s1931,70030
    stbi__huffman huff_dc[4];huff_dc1932,70052
-   stbi__huffman huff_dc[4];__anon8::huff_dc1932,70052
+   stbi__huffman huff_dc[4];__anon14::huff_dc1932,70052
    stbi__huffman huff_ac[4];huff_ac1933,70082
-   stbi__huffman huff_ac[4];__anon8::huff_ac1933,70082
+   stbi__huffman huff_ac[4];__anon14::huff_ac1933,70082
    stbi__uint16 dequant[4][64];dequant1934,70112
-   stbi__uint16 dequant[4][64];__anon8::dequant1934,70112
+   stbi__uint16 dequant[4][64];__anon14::dequant1934,70112
    stbi__int16 fast_ac[4][1 << FAST_BITS];fast_ac1935,70145
-   stbi__int16 fast_ac[4][1 << FAST_BITS];__anon8::fast_ac1935,70145
+   stbi__int16 fast_ac[4][1 << FAST_BITS];__anon14::fast_ac1935,70145
    int img_h_max, img_v_max;img_h_max1938,70234
-   int img_h_max, img_v_max;__anon8::img_h_max1938,70234
+   int img_h_max, img_v_max;__anon14::img_h_max1938,70234
    int img_h_max, img_v_max;img_v_max1938,70234
-   int img_h_max, img_v_max;__anon8::img_v_max1938,70234
+   int img_h_max, img_v_max;__anon14::img_v_max1938,70234
    int img_mcu_x, img_mcu_y;img_mcu_x1939,70264
-   int img_mcu_x, img_mcu_y;__anon8::img_mcu_x1939,70264
+   int img_mcu_x, img_mcu_y;__anon14::img_mcu_x1939,70264
    int img_mcu_x, img_mcu_y;img_mcu_y1939,70264
-   int img_mcu_x, img_mcu_y;__anon8::img_mcu_y1939,70264
+   int img_mcu_x, img_mcu_y;__anon14::img_mcu_y1939,70264
    int img_mcu_w, img_mcu_h;img_mcu_w1940,70294
-   int img_mcu_w, img_mcu_h;__anon8::img_mcu_w1940,70294
+   int img_mcu_w, img_mcu_h;__anon14::img_mcu_w1940,70294
    int img_mcu_w, img_mcu_h;img_mcu_h1940,70294
-   int img_mcu_w, img_mcu_h;__anon8::img_mcu_h1940,70294
+   int img_mcu_w, img_mcu_h;__anon14::img_mcu_h1940,70294
       int id;id1945,70382
-      int id;__anon8::__anon9::id1945,70382
+      int id;__anon14::__anon15::id1945,70382
       int h,v;h1946,70397
-      int h,v;__anon8::__anon9::h1946,70397
+      int h,v;__anon14::__anon15::h1946,70397
       int h,v;v1946,70397
-      int h,v;__anon8::__anon9::v1946,70397
+      int h,v;__anon14::__anon15::v1946,70397
       int tq;tq1947,70413
-      int tq;__anon8::__anon9::tq1947,70413
+      int tq;__anon14::__anon15::tq1947,70413
       int hd,ha;hd1948,70428
-      int hd,ha;__anon8::__anon9::hd1948,70428
+      int hd,ha;__anon14::__anon15::hd1948,70428
       int hd,ha;ha1948,70428
-      int hd,ha;__anon8::__anon9::ha1948,70428
+      int hd,ha;__anon14::__anon15::ha1948,70428
       int dc_pred;dc_pred1949,70446
-      int dc_pred;__anon8::__anon9::dc_pred1949,70446
+      int dc_pred;__anon14::__anon15::dc_pred1949,70446
       int x,y,w2,h2;x1951,70468
-      int x,y,w2,h2;__anon8::__anon9::x1951,70468
+      int x,y,w2,h2;__anon14::__anon15::x1951,70468
       int x,y,w2,h2;y1951,70468
-      int x,y,w2,h2;__anon8::__anon9::y1951,70468
+      int x,y,w2,h2;__anon14::__anon15::y1951,70468
       int x,y,w2,h2;w21951,70468
-      int x,y,w2,h2;__anon8::__anon9::w21951,70468
+      int x,y,w2,h2;__anon14::__anon15::w21951,70468
       int x,y,w2,h2;h21951,70468
-      int x,y,w2,h2;__anon8::__anon9::h21951,70468
+      int x,y,w2,h2;__anon14::__anon15::h21951,70468
       stbi_uc *data;data1952,70490
-      stbi_uc *data;__anon8::__anon9::data1952,70490
+      stbi_uc *data;__anon14::__anon15::data1952,70490
       void *raw_data, *raw_coeff;raw_data1953,70512
-      void *raw_data, *raw_coeff;__anon8::__anon9::raw_data1953,70512
+      void *raw_data, *raw_coeff;__anon14::__anon15::raw_data1953,70512
       void *raw_data, *raw_coeff;raw_coeff1953,70512
-      void *raw_data, *raw_coeff;__anon8::__anon9::raw_coeff1953,70512
+      void *raw_data, *raw_coeff;__anon14::__anon15::raw_coeff1953,70512
       stbi_uc *linebuf;linebuf1954,70547
-      stbi_uc *linebuf;__anon8::__anon9::linebuf1954,70547
+      stbi_uc *linebuf;__anon14::__anon15::linebuf1954,70547
       short   *coeff;   // progressive onlycoeff1955,70572
-      short   *coeff;   // progressive only__anon8::__anon9::coeff1955,70572
+      short   *coeff;   // progressive only__anon14::__anon15::coeff1955,70572
       int      coeff_w, coeff_h; // number of 8x8 coefficient blockscoeff_w1956,70617
-      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon8::__anon9::coeff_w1956,70617
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon14::__anon15::coeff_w1956,70617
       int      coeff_w, coeff_h; // number of 8x8 coefficient blockscoeff_h1956,70617
-      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon8::__anon9::coeff_h1956,70617
+      int      coeff_w, coeff_h; // number of 8x8 coefficient blocks__anon14::__anon15::coeff_h1956,70617
    } img_comp[4];img_comp1957,70687
-   } img_comp[4];__anon8::img_comp1957,70687
+   } img_comp[4];__anon14::img_comp1957,70687
    stbi__uint32   code_buffer; // jpeg entropy-coded buffercode_buffer1959,70708
-   stbi__uint32   code_buffer; // jpeg entropy-coded buffer__anon8::code_buffer1959,70708
+   stbi__uint32   code_buffer; // jpeg entropy-coded buffer__anon14::code_buffer1959,70708
    int            code_bits;   // number of valid bitscode_bits1960,70769
-   int            code_bits;   // number of valid bits__anon8::code_bits1960,70769
+   int            code_bits;   // number of valid bits__anon14::code_bits1960,70769
    unsigned char  marker;      // marker seen while filling entropy buffermarker1961,70825
-   unsigned char  marker;      // marker seen while filling entropy buffer__anon8::marker1961,70825
+   unsigned char  marker;      // marker seen while filling entropy buffer__anon14::marker1961,70825
    int            nomore;      // flag if we saw a marker so must stopnomore1962,70901
-   int            nomore;      // flag if we saw a marker so must stop__anon8::nomore1962,70901
+   int            nomore;      // flag if we saw a marker so must stop__anon14::nomore1962,70901
    int            progressive;progressive1964,70975
-   int            progressive;__anon8::progressive1964,70975
+   int            progressive;__anon14::progressive1964,70975
    int            spec_start;spec_start1965,71007
-   int            spec_start;__anon8::spec_start1965,71007
+   int            spec_start;__anon14::spec_start1965,71007
    int            spec_end;spec_end1966,71038
-   int            spec_end;__anon8::spec_end1966,71038
+   int            spec_end;__anon14::spec_end1966,71038
    int            succ_high;succ_high1967,71067
-   int            succ_high;__anon8::succ_high1967,71067
+   int            succ_high;__anon14::succ_high1967,71067
    int            succ_low;succ_low1968,71097
-   int            succ_low;__anon8::succ_low1968,71097
+   int            succ_low;__anon14::succ_low1968,71097
    int            eob_run;eob_run1969,71126
-   int            eob_run;__anon8::eob_run1969,71126
+   int            eob_run;__anon14::eob_run1969,71126
    int            jfif;jfif1970,71154
-   int            jfif;__anon8::jfif1970,71154
+   int            jfif;__anon14::jfif1970,71154
    int            app14_color_transform; // Adobe APP14 tagapp14_color_transform1971,71179
-   int            app14_color_transform; // Adobe APP14 tag__anon8::app14_color_transform1971,71179
+   int            app14_color_transform; // Adobe APP14 tag__anon14::app14_color_transform1971,71179
    int            rgb;rgb1972,71240
-   int            rgb;__anon8::rgb1972,71240
+   int            rgb;__anon14::rgb1972,71240
    int scan_n, order[4];scan_n1974,71266
-   int scan_n, order[4];__anon8::scan_n1974,71266
+   int scan_n, order[4];__anon14::scan_n1974,71266
    int scan_n, order[4];order1974,71266
-   int scan_n, order[4];__anon8::order1974,71266
+   int scan_n, order[4];__anon14::order1974,71266
    int restart_interval, todo;restart_interval1975,71292
-   int restart_interval, todo;__anon8::restart_interval1975,71292
+   int restart_interval, todo;__anon14::restart_interval1975,71292
    int restart_interval, todo;todo1975,71292
-   int restart_interval, todo;__anon8::todo1975,71292
+   int restart_interval, todo;__anon14::todo1975,71292
    void (*idct_block_kernel)(stbi_uc *out, int out_stride, short data[64]);idct_block_kernel1978,71338
-   void (*idct_block_kernel)(stbi_uc *out, int out_stride, short data[64]);__anon8::idct_block_kernel1978,71338
+   void (*idct_block_kernel)(stbi_uc *out, int out_stride, short data[64]);__anon14::idct_block_kernel1978,71338
    void (*YCbCr_to_RGB_kernel)(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step);YCbCr_to_RGB_kernel1979,71415
-   void (*YCbCr_to_RGB_kernel)(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step);__anon8::YCbCr_to_RGB_kernel1979,71415
+   void (*YCbCr_to_RGB_kernel)(stbi_uc *out, const stbi_uc *y, const stbi_uc *pcb, const stbi_uc *pcr, int count, int step);__anon14::YCbCr_to_RGB_kernel1979,71415
    stbi_uc *(*resample_row_hv_2_kernel)(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs);resample_row_hv_2_kernel1980,71541
-   stbi_uc *(*resample_row_hv_2_kernel)(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs);__anon8::resample_row_hv_2_kernel1980,71541
+   stbi_uc *(*resample_row_hv_2_kernel)(stbi_uc *out, stbi_uc *in_near, stbi_uc *in_far, int w, int hs);__anon14::resample_row_hv_2_kernel1980,71541
 } stbi__jpeg;stbi__jpeg1981,71647
 static int stbi__build_huffman(stbi__huffman *h, int *count)stbi__build_huffman1983,71664
 static void stbi__build_fast_ac(stbi__int16 *fast_ac, stbi__huffman *h)stbi__build_fast_ac2027,73023
@@ -421,21 +703,21 @@ static void stbi__YCbCr_to_RGB_simd(stbi_uc *out, stbi_uc const *y, stbi_uc cons
 static void stbi__setup_jpeg(stbi__jpeg *j)stbi__setup_jpeg3767,139634
 static void stbi__cleanup_jpeg(stbi__jpeg *j)stbi__cleanup_jpeg3789,140318
    resample_row_func resample;resample3796,140443
-   resample_row_func resample;__anon10::resample3796,140443
+   resample_row_func resample;__anon16::resample3796,140443
    stbi_uc *line0,*line1;line03797,140475
-   stbi_uc *line0,*line1;__anon10::line03797,140475
+   stbi_uc *line0,*line1;__anon16::line03797,140475
    stbi_uc *line0,*line1;line13797,140475
-   stbi_uc *line0,*line1;__anon10::line13797,140475
+   stbi_uc *line0,*line1;__anon16::line13797,140475
    int hs,vs;   // expansion factor in each axishs3798,140502
-   int hs,vs;   // expansion factor in each axis__anon10::hs3798,140502
+   int hs,vs;   // expansion factor in each axis__anon16::hs3798,140502
    int hs,vs;   // expansion factor in each axisvs3798,140502
-   int hs,vs;   // expansion factor in each axis__anon10::vs3798,140502
+   int hs,vs;   // expansion factor in each axis__anon16::vs3798,140502
    int w_lores; // horizontal pixels pre-expansionw_lores3799,140552
-   int w_lores; // horizontal pixels pre-expansion__anon10::w_lores3799,140552
+   int w_lores; // horizontal pixels pre-expansion__anon16::w_lores3799,140552
    int ystep;   // how far through vertical expansion we areystep3800,140604
-   int ystep;   // how far through vertical expansion we are__anon10::ystep3800,140604
+   int ystep;   // how far through vertical expansion we are__anon16::ystep3800,140604
    int ypos;    // which pre-expansion row we're onypos3801,140666
-   int ypos;    // which pre-expansion row we're on__anon10::ypos3801,140666
+   int ypos;    // which pre-expansion row we're on__anon16::ypos3801,140666
 } stbi__resample;stbi__resample3802,140719
 static stbi_uc stbi__blinn_8x8(stbi_uc x, stbi_uc y)stbi__blinn_8x83805,140798
 static stbi_uc *load_jpeg_image(stbi__jpeg *z, int *out_x, int *out_y, int *comp, int req_comp)load_jpeg_image3811,140935
@@ -447,41 +729,41 @@ static int stbi__jpeg_info(stbi__context *s, int *x, int *y, int *comp)stbi__jp
 #define STBI__ZFAST_MASK STBI__ZFAST_MASK4035,149770
 #define STBI__ZNSYMS STBI__ZNSYMS4036,149827
    stbi__uint16 fast[1 << STBI__ZFAST_BITS];fast4042,150020
-   stbi__uint16 fast[1 << STBI__ZFAST_BITS];__anon11::fast4042,150020
+   stbi__uint16 fast[1 << STBI__ZFAST_BITS];__anon17::fast4042,150020
    stbi__uint16 firstcode[16];firstcode4043,150066
-   stbi__uint16 firstcode[16];__anon11::firstcode4043,150066
+   stbi__uint16 firstcode[16];__anon17::firstcode4043,150066
    int maxcode[17];maxcode4044,150098
-   int maxcode[17];__anon11::maxcode4044,150098
+   int maxcode[17];__anon17::maxcode4044,150098
    stbi__uint16 firstsymbol[16];firstsymbol4045,150119
-   stbi__uint16 firstsymbol[16];__anon11::firstsymbol4045,150119
+   stbi__uint16 firstsymbol[16];__anon17::firstsymbol4045,150119
    stbi_uc  size[STBI__ZNSYMS];size4046,150153
-   stbi_uc  size[STBI__ZNSYMS];__anon11::size4046,150153
+   stbi_uc  size[STBI__ZNSYMS];__anon17::size4046,150153
    stbi__uint16 value[STBI__ZNSYMS];value4047,150186
-   stbi__uint16 value[STBI__ZNSYMS];__anon11::value4047,150186
+   stbi__uint16 value[STBI__ZNSYMS];__anon17::value4047,150186
 } stbi__zhuffman;stbi__zhuffman4048,150224
 stbi_inline static int stbi__bitreverse16(int n)stbi__bitreverse164050,150245
 stbi_inline static int stbi__bit_reverse(int v, int bits)stbi__bit_reverse4059,150520
 static int stbi__zbuild_huffman(stbi__zhuffman *z, const stbi_uc *sizelist, int num)stbi__zbuild_huffman4067,150764
    stbi_uc *zbuffer, *zbuffer_end;zbuffer4122,152566
-   stbi_uc *zbuffer, *zbuffer_end;__anon12::zbuffer4122,152566
+   stbi_uc *zbuffer, *zbuffer_end;__anon18::zbuffer4122,152566
    stbi_uc *zbuffer, *zbuffer_end;zbuffer_end4122,152566
-   stbi_uc *zbuffer, *zbuffer_end;__anon12::zbuffer_end4122,152566
+   stbi_uc *zbuffer, *zbuffer_end;__anon18::zbuffer_end4122,152566
    int num_bits;num_bits4123,152602
-   int num_bits;__anon12::num_bits4123,152602
+   int num_bits;__anon18::num_bits4123,152602
    stbi__uint32 code_buffer;code_buffer4124,152620
-   stbi__uint32 code_buffer;__anon12::code_buffer4124,152620
+   stbi__uint32 code_buffer;__anon18::code_buffer4124,152620
    char *zout;zout4126,152652
-   char *zout;__anon12::zout4126,152652
+   char *zout;__anon18::zout4126,152652
    char *zout_start;zout_start4127,152668
-   char *zout_start;__anon12::zout_start4127,152668
+   char *zout_start;__anon18::zout_start4127,152668
    char *zout_end;zout_end4128,152690
-   char *zout_end;__anon12::zout_end4128,152690
+   char *zout_end;__anon18::zout_end4128,152690
    int   z_expandable;z_expandable4129,152710
-   int   z_expandable;__anon12::z_expandable4129,152710
+   int   z_expandable;__anon18::z_expandable4129,152710
    stbi__zhuffman z_length, z_distance;z_length4131,152736
-   stbi__zhuffman z_length, z_distance;__anon12::z_length4131,152736
+   stbi__zhuffman z_length, z_distance;__anon18::z_length4131,152736
    stbi__zhuffman z_length, z_distance;z_distance4131,152736
-   stbi__zhuffman z_length, z_distance;__anon12::z_distance4131,152736
+   stbi__zhuffman z_length, z_distance;__anon18::z_distance4131,152736
 } stbi__zbuf;stbi__zbuf4132,152777
 stbi_inline static int stbi__zeof(stbi__zbuf *z)stbi__zeof4134,152794
 stbi_inline static stbi_uc stbi__zget8(stbi__zbuf *z)stbi__zget84139,152895
@@ -509,22 +791,22 @@ STBIDEF int stbi_zlib_decode_buffer(char *obuffer, int olen, char const *ibuffer
 STBIDEF char *stbi_zlib_decode_noheader_malloc(char const *buffer, int len, int *outlen)stbi_zlib_decode_noheader_malloc4490,165158
 STBIDEF int stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const char *ibuffer, int ilen)stbi_zlib_decode_noheader_buffer4506,165634
    stbi__uint32 length;length4531,166435
-   stbi__uint32 length;__anon13::length4531,166435
+   stbi__uint32 length;__anon19::length4531,166435
    stbi__uint32 type;type4532,166460
-   stbi__uint32 type;__anon13::type4532,166460
+   stbi__uint32 type;__anon19::type4532,166460
 } stbi__pngchunk;stbi__pngchunk4533,166483
 static stbi__pngchunk stbi__get_chunk_header(stbi__context *s)stbi__get_chunk_header4535,166504
 static int stbi__check_png_header(stbi__context *s)stbi__check_png_header4543,166678
    stbi__context *s;s4554,166962
-   stbi__context *s;__anon14::s4554,166962
+   stbi__context *s;__anon20::s4554,166962
    stbi_uc *idata, *expanded, *out;idata4555,166984
-   stbi_uc *idata, *expanded, *out;__anon14::idata4555,166984
+   stbi_uc *idata, *expanded, *out;__anon20::idata4555,166984
    stbi_uc *idata, *expanded, *out;expanded4555,166984
-   stbi_uc *idata, *expanded, *out;__anon14::expanded4555,166984
+   stbi_uc *idata, *expanded, *out;__anon20::expanded4555,166984
    stbi_uc *idata, *expanded, *out;out4555,166984
-   stbi_uc *idata, *expanded, *out;__anon14::out4555,166984
+   stbi_uc *idata, *expanded, *out;__anon20::out4555,166984
    int depth;depth4556,167021
-   int depth;__anon14::depth4556,167021
+   int depth;__anon20::depth4556,167021
 } stbi__png;stbi__png4557,167036
    STBI__F_none=0,STBI__F_none4561,167062
    STBI__F_sub=1,STBI__F_sub4562,167082
@@ -574,23 +856,23 @@ static int stbi__high_bit(unsigned int z)stbi__high_bit5306,196885
 static int stbi__bitcount(unsigned int a)stbi__bitcount5318,197217
 static int stbi__shiftsigned(unsigned int v, int shift, int bits)stbi__shiftsigned5331,197716
    int bpp, offset, hsz;bpp5353,198347
-   int bpp, offset, hsz;__anon16::bpp5353,198347
+   int bpp, offset, hsz;__anon22::bpp5353,198347
    int bpp, offset, hsz;offset5353,198347
-   int bpp, offset, hsz;__anon16::offset5353,198347
+   int bpp, offset, hsz;__anon22::offset5353,198347
    int bpp, offset, hsz;hsz5353,198347
-   int bpp, offset, hsz;__anon16::hsz5353,198347
+   int bpp, offset, hsz;__anon22::hsz5353,198347
    unsigned int mr,mg,mb,ma, all_a;mr5354,198373
-   unsigned int mr,mg,mb,ma, all_a;__anon16::mr5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon22::mr5354,198373
    unsigned int mr,mg,mb,ma, all_a;mg5354,198373
-   unsigned int mr,mg,mb,ma, all_a;__anon16::mg5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon22::mg5354,198373
    unsigned int mr,mg,mb,ma, all_a;mb5354,198373
-   unsigned int mr,mg,mb,ma, all_a;__anon16::mb5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon22::mb5354,198373
    unsigned int mr,mg,mb,ma, all_a;ma5354,198373
-   unsigned int mr,mg,mb,ma, all_a;__anon16::ma5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon22::ma5354,198373
    unsigned int mr,mg,mb,ma, all_a;all_a5354,198373
-   unsigned int mr,mg,mb,ma, all_a;__anon16::all_a5354,198373
+   unsigned int mr,mg,mb,ma, all_a;__anon22::all_a5354,198373
    int extra_read;extra_read5355,198410
-   int extra_read;__anon16::extra_read5355,198410
+   int extra_read;__anon22::extra_read5355,198410
 } stbi__bmp_data;stbi__bmp_data5356,198430
 static int stbi__bmp_set_mask_defaults(stbi__bmp_data *info, int compress)stbi__bmp_set_mask_defaults5358,198451
 static void *stbi__bmp_parse_header(stbi__context *s, stbi__bmp_data *info)stbi__bmp_parse_header5384,199243
@@ -606,11 +888,11 @@ static void *stbi__psd_load(stbi__context *s, int *x, int *y, int *comp, int req
 static int stbi__pic_is4(stbi__context *s,const char *str)stbi__pic_is46258,231857
 static int stbi__pic_test_core(stbi__context *s)stbi__pic_test_core6268,232041
    stbi_uc size,type,channel;size6286,232309
-   stbi_uc size,type,channel;__anon17::size6286,232309
+   stbi_uc size,type,channel;__anon23::size6286,232309
    stbi_uc size,type,channel;type6286,232309
-   stbi_uc size,type,channel;__anon17::type6286,232309
+   stbi_uc size,type,channel;__anon23::type6286,232309
    stbi_uc size,type,channel;channel6286,232309
-   stbi_uc size,type,channel;__anon17::channel6286,232309
+   stbi_uc size,type,channel;__anon23::channel6286,232309
 } stbi__pic_packet;stbi__pic_packet6287,232340
 static stbi_uc *stbi__readval(stbi__context *s, int channel, stbi_uc *dest)stbi__readval6289,232363
 static void stbi__copyval(int channel,stbi_uc *dest,const stbi_uc *src)stbi__copyval6303,232689
@@ -618,62 +900,62 @@ static stbi_uc *stbi__pic_load_core(stbi__context *s,int width,int height,int *c
 static void *stbi__pic_load(stbi__context *s,int *px,int *py,int *comp,int req_comp, stbi__result_info *ri)stbi__pic_load6422,236546
 static int stbi__pic_test(stbi__context *s)stbi__pic_test6463,237830
    stbi__int16 prefix;prefix6477,238187
-   stbi__int16 prefix;__anon18::prefix6477,238187
+   stbi__int16 prefix;__anon24::prefix6477,238187
    stbi_uc first;first6478,238211
-   stbi_uc first;__anon18::first6478,238211
+   stbi_uc first;__anon24::first6478,238211
    stbi_uc suffix;suffix6479,238230
-   stbi_uc suffix;__anon18::suffix6479,238230
+   stbi_uc suffix;__anon24::suffix6479,238230
 } stbi__gif_lzw;stbi__gif_lzw6480,238250
    int w,h;w6484,238289
-   int w,h;__anon19::w6484,238289
+   int w,h;__anon25::w6484,238289
    int w,h;h6484,238289
-   int w,h;__anon19::h6484,238289
+   int w,h;__anon25::h6484,238289
    stbi_uc *out;                 // output buffer (always 4 components)out6485,238302
-   stbi_uc *out;                 // output buffer (always 4 components)__anon19::out6485,238302
+   stbi_uc *out;                 // output buffer (always 4 components)__anon25::out6485,238302
    stbi_uc *background;          // The current "background" as far as a gif is concernedbackground6486,238375
-   stbi_uc *background;          // The current "background" as far as a gif is concerned__anon19::background6486,238375
+   stbi_uc *background;          // The current "background" as far as a gif is concerned__anon25::background6486,238375
    stbi_uc *history;history6487,238466
-   stbi_uc *history;__anon19::history6487,238466
+   stbi_uc *history;__anon25::history6487,238466
    int flags, bgindex, ratio, transparent, eflags;flags6488,238488
-   int flags, bgindex, ratio, transparent, eflags;__anon19::flags6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon25::flags6488,238488
    int flags, bgindex, ratio, transparent, eflags;bgindex6488,238488
-   int flags, bgindex, ratio, transparent, eflags;__anon19::bgindex6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon25::bgindex6488,238488
    int flags, bgindex, ratio, transparent, eflags;ratio6488,238488
-   int flags, bgindex, ratio, transparent, eflags;__anon19::ratio6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon25::ratio6488,238488
    int flags, bgindex, ratio, transparent, eflags;transparent6488,238488
-   int flags, bgindex, ratio, transparent, eflags;__anon19::transparent6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon25::transparent6488,238488
    int flags, bgindex, ratio, transparent, eflags;eflags6488,238488
-   int flags, bgindex, ratio, transparent, eflags;__anon19::eflags6488,238488
+   int flags, bgindex, ratio, transparent, eflags;__anon25::eflags6488,238488
    stbi_uc  pal[256][4];pal6489,238540
-   stbi_uc  pal[256][4];__anon19::pal6489,238540
+   stbi_uc  pal[256][4];__anon25::pal6489,238540
    stbi_uc lpal[256][4];lpal6490,238566
-   stbi_uc lpal[256][4];__anon19::lpal6490,238566
+   stbi_uc lpal[256][4];__anon25::lpal6490,238566
    stbi__gif_lzw codes[8192];codes6491,238592
-   stbi__gif_lzw codes[8192];__anon19::codes6491,238592
+   stbi__gif_lzw codes[8192];__anon25::codes6491,238592
    stbi_uc *color_table;color_table6492,238623
-   stbi_uc *color_table;__anon19::color_table6492,238623
+   stbi_uc *color_table;__anon25::color_table6492,238623
    int parse, step;parse6493,238649
-   int parse, step;__anon19::parse6493,238649
+   int parse, step;__anon25::parse6493,238649
    int parse, step;step6493,238649
-   int parse, step;__anon19::step6493,238649
+   int parse, step;__anon25::step6493,238649
    int lflags;lflags6494,238670
-   int lflags;__anon19::lflags6494,238670
+   int lflags;__anon25::lflags6494,238670
    int start_x, start_y;start_x6495,238686
-   int start_x, start_y;__anon19::start_x6495,238686
+   int start_x, start_y;__anon25::start_x6495,238686
    int start_x, start_y;start_y6495,238686
-   int start_x, start_y;__anon19::start_y6495,238686
+   int start_x, start_y;__anon25::start_y6495,238686
    int max_x, max_y;max_x6496,238712
-   int max_x, max_y;__anon19::max_x6496,238712
+   int max_x, max_y;__anon25::max_x6496,238712
    int max_x, max_y;max_y6496,238712
-   int max_x, max_y;__anon19::max_y6496,238712
+   int max_x, max_y;__anon25::max_y6496,238712
    int cur_x, cur_y;cur_x6497,238734
-   int cur_x, cur_y;__anon19::cur_x6497,238734
+   int cur_x, cur_y;__anon25::cur_x6497,238734
    int cur_x, cur_y;cur_y6497,238734
-   int cur_x, cur_y;__anon19::cur_y6497,238734
+   int cur_x, cur_y;__anon25::cur_y6497,238734
    int line_size;line_size6498,238756
-   int line_size;__anon19::line_size6498,238756
+   int line_size;__anon25::line_size6498,238756
    int delay;delay6499,238775
-   int delay;__anon19::delay6499,238775
+   int delay;__anon25::delay6499,238775
 } stbi__gif;stbi__gif6500,238790
 static int stbi__gif_test_raw(stbi__context *s)stbi__gif_test_raw6502,238806
 static int stbi__gif_test(stbi__context *s)stbi__gif_test6512,239107
@@ -719,112 +1001,114 @@ STBIDEF int stbi_is_16_bit_from_callbacks(stbi_io_callbacks const *c, void *user
 
 c:/Dev/Graphics\run.bat,0
 
-c:/Dev/Graphics\src\main.cpp,5082
-#define STB_IMAGE_IMPLEMENTATIONSTB_IMAGE_IMPLEMENTATION19,380
-struct Material {Material24,463
-    XMFLOAT4 ambient;ambient25,481
-    XMFLOAT4 ambient;Material::ambient25,481
-    XMFLOAT4 diffuse;diffuse26,503
-    XMFLOAT4 diffuse;Material::diffuse26,503
-    XMFLOAT4 specular;specular27,525
-    XMFLOAT4 specular;Material::specular27,525
-struct Directional_Light {Directional_Light30,552
-    XMFLOAT4 ambient;ambient31,579
-    XMFLOAT4 ambient;Directional_Light::ambient31,579
-    XMFLOAT4 diffuse;diffuse32,601
-    XMFLOAT4 diffuse;Directional_Light::diffuse32,601
-    XMFLOAT4 specular;specular33,623
-    XMFLOAT4 specular;Directional_Light::specular33,623
-    XMFLOAT3 direction;direction35,651
-    XMFLOAT3 direction;Directional_Light::direction35,651
-    float pad;pad36,675
-    float pad;Directional_Light::pad36,675
-struct Point_Light {Point_Light39,694
-    XMFLOAT4 ambient;ambient40,715
-    XMFLOAT4 ambient;Point_Light::ambient40,715
-    XMFLOAT4 diffuse;diffuse41,737
-    XMFLOAT4 diffuse;Point_Light::diffuse41,737
-    XMFLOAT4 specular;specular42,759
-    XMFLOAT4 specular;Point_Light::specular42,759
-    XMFLOAT3 position;position44,787
-    XMFLOAT3 position;Point_Light::position44,787
-    float range;range45,810
-    float range;Point_Light::range45,810
-    XMFLOAT3 att;att47,832
-    XMFLOAT3 att;Point_Light::att47,832
-    float pad;pad48,850
-    float pad;Point_Light::pad48,850
-struct Spot_Light {Spot_Light51,869
-    XMFLOAT4 ambient;ambient52,889
-    XMFLOAT4 ambient;Spot_Light::ambient52,889
-    XMFLOAT4 diffuse;diffuse53,911
-    XMFLOAT4 diffuse;Spot_Light::diffuse53,911
-    XMFLOAT4 specular;specular54,933
-    XMFLOAT4 specular;Spot_Light::specular54,933
-    XMFLOAT3 position;position56,961
-    XMFLOAT3 position;Spot_Light::position56,961
-    float range;range57,984
-    float range;Spot_Light::range57,984
-    XMFLOAT3 direction;direction59,1006
-    XMFLOAT3 direction;Spot_Light::direction59,1006
-    float spot;spot60,1030
-    float spot;Spot_Light::spot60,1030
-    XMFLOAT3 att;att62,1051
-    XMFLOAT3 att;Spot_Light::att62,1051
-    float pad;pad63,1069
-    float pad;Spot_Light::pad63,1069
-struct CB_Per_Frame {CB_Per_Frame66,1088
-    Directional_Light dir_light;dir_light67,1110
-    Directional_Light dir_light;CB_Per_Frame::dir_light67,1110
-    Point_Light point_light;point_light68,1143
-    Point_Light point_light;CB_Per_Frame::point_light68,1143
-    Spot_Light spot_light;spot_light69,1172
-    Spot_Light spot_light;CB_Per_Frame::spot_light69,1172
-    XMFLOAT3 eye_pos;eye_pos70,1199
-    XMFLOAT3 eye_pos;CB_Per_Frame::eye_pos70,1199
-    float pad;pad71,1221
-    float pad;CB_Per_Frame::pad71,1221
-struct CB_Per_Object {CB_Per_Object74,1240
-    XMMATRIX world;world75,1263
-    XMMATRIX world;CB_Per_Object::world75,1263
-    XMMATRIX world_inv_transpose;world_inv_transpose76,1283
-    XMMATRIX world_inv_transpose;CB_Per_Object::world_inv_transpose76,1283
-    XMMATRIX wvp;wvp77,1317
-    XMMATRIX wvp;CB_Per_Object::wvp77,1317
-    XMMATRIX tex_transform;tex_transform78,1335
-    XMMATRIX tex_transform;CB_Per_Object::tex_transform78,1335
-    Material material;material79,1363
-    Material material;CB_Per_Object::material79,1363
-struct Input {Input82,1390
-    bool left;left83,1405
-    bool left;Input::left83,1405
-    bool right;right84,1420
-    bool right;Input::right84,1420
-    bool up;up85,1436
-    bool up;Input::up85,1436
-    bool down;down86,1449
-    bool down;Input::down86,1449
-    POINT last_cursor;last_cursor87,1464
-    POINT last_cursor;Input::last_cursor87,1464
-struct Mesh_Data {Mesh_Data90,1491
-    std::vector<float> vertices;vertices91,1510
-    std::vector<float> vertices;Mesh_Data::vertices91,1510
-    std::vector<uint32_t> indices;indices92,1543
-    std::vector<uint32_t> indices;Mesh_Data::indices92,1543
-    XMFLOAT3 origin;origin93,1578
-    XMFLOAT3 origin;Mesh_Data::origin93,1578
-float camera_pitch;camera_pitch96,1603
-float camera_yaw;camera_yaw97,1623
-float camera_radius = 3.0f;camera_radius98,1641
-const int TARGET_FPS = 30;TARGET_FPS100,1670
-int WINDOW_WIDTH = 1280;WINDOW_WIDTH102,1698
-int WINDOW_HEIGHT = 720;WINDOW_HEIGHT103,1723
-bool window_should_close;window_should_close104,1748
-Mesh_Data load_mesh(const char *filename) {load_mesh106,1775
-float clamp(float val, float minval, float maxval) {clamp195,4813
-LARGE_INTEGER performance_frequency;performance_frequency202,4990
-inline float win32_get_seconds_elapsed(LARGE_INTEGER start, LARGE_INTEGER end) {win32_get_seconds_elapsed203,5027
-inline LARGE_INTEGER win32_get_wall_clock() {win32_get_wall_clock207,5228
-LRESULT CALLBACK main_window_callback(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {main_window_callback214,5361
-void win32_process_pending_messages(Input *input) {win32_process_pending_messages228,5687
-int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, int cmd_show) {WinMain268,6936
+c:/Dev/Graphics\src\main.cpp,5188
+typedef int32_t int32;int3215,268
+#define STB_IMAGE_IMPLEMENTATIONSTB_IMAGE_IMPLEMENTATION21,423
+#define STB_DS_IMPLEMENTATIONSTB_DS_IMPLEMENTATION23,479
+struct Material {Material28,556
+    XMFLOAT4 ambient;ambient29,574
+    XMFLOAT4 ambient;Material::ambient29,574
+    XMFLOAT4 diffuse;diffuse30,596
+    XMFLOAT4 diffuse;Material::diffuse30,596
+    XMFLOAT4 specular;specular31,618
+    XMFLOAT4 specular;Material::specular31,618
+struct Directional_Light {Directional_Light34,645
+    XMFLOAT4 ambient;ambient35,672
+    XMFLOAT4 ambient;Directional_Light::ambient35,672
+    XMFLOAT4 diffuse;diffuse36,694
+    XMFLOAT4 diffuse;Directional_Light::diffuse36,694
+    XMFLOAT4 specular;specular37,716
+    XMFLOAT4 specular;Directional_Light::specular37,716
+    XMFLOAT3 direction;direction39,744
+    XMFLOAT3 direction;Directional_Light::direction39,744
+    float pad;pad40,768
+    float pad;Directional_Light::pad40,768
+struct Point_Light {Point_Light43,787
+    XMFLOAT4 ambient;ambient44,808
+    XMFLOAT4 ambient;Point_Light::ambient44,808
+    XMFLOAT4 diffuse;diffuse45,830
+    XMFLOAT4 diffuse;Point_Light::diffuse45,830
+    XMFLOAT4 specular;specular46,852
+    XMFLOAT4 specular;Point_Light::specular46,852
+    XMFLOAT3 position;position48,880
+    XMFLOAT3 position;Point_Light::position48,880
+    float range;range49,903
+    float range;Point_Light::range49,903
+    XMFLOAT3 att;att51,925
+    XMFLOAT3 att;Point_Light::att51,925
+    float pad;pad52,943
+    float pad;Point_Light::pad52,943
+struct Spot_Light {Spot_Light55,962
+    XMFLOAT4 ambient;ambient56,982
+    XMFLOAT4 ambient;Spot_Light::ambient56,982
+    XMFLOAT4 diffuse;diffuse57,1004
+    XMFLOAT4 diffuse;Spot_Light::diffuse57,1004
+    XMFLOAT4 specular;specular58,1026
+    XMFLOAT4 specular;Spot_Light::specular58,1026
+    XMFLOAT3 position;position60,1054
+    XMFLOAT3 position;Spot_Light::position60,1054
+    float range;range61,1077
+    float range;Spot_Light::range61,1077
+    XMFLOAT3 direction;direction63,1099
+    XMFLOAT3 direction;Spot_Light::direction63,1099
+    float spot;spot64,1123
+    float spot;Spot_Light::spot64,1123
+    XMFLOAT3 att;att66,1144
+    XMFLOAT3 att;Spot_Light::att66,1144
+    float pad;pad67,1162
+    float pad;Spot_Light::pad67,1162
+struct CB_Per_Frame {CB_Per_Frame70,1181
+    Directional_Light dir_light;dir_light71,1203
+    Directional_Light dir_light;CB_Per_Frame::dir_light71,1203
+    Point_Light point_light;point_light72,1236
+    Point_Light point_light;CB_Per_Frame::point_light72,1236
+    Spot_Light spot_light;spot_light73,1265
+    Spot_Light spot_light;CB_Per_Frame::spot_light73,1265
+    XMFLOAT3 eye_pos;eye_pos74,1292
+    XMFLOAT3 eye_pos;CB_Per_Frame::eye_pos74,1292
+    float pad;pad75,1314
+    float pad;CB_Per_Frame::pad75,1314
+struct CB_Per_Object {CB_Per_Object78,1333
+    XMMATRIX world;world79,1356
+    XMMATRIX world;CB_Per_Object::world79,1356
+    XMMATRIX world_inv_transpose;world_inv_transpose80,1376
+    XMMATRIX world_inv_transpose;CB_Per_Object::world_inv_transpose80,1376
+    XMMATRIX wvp;wvp81,1410
+    XMMATRIX wvp;CB_Per_Object::wvp81,1410
+    XMMATRIX tex_transform;tex_transform82,1428
+    XMMATRIX tex_transform;CB_Per_Object::tex_transform82,1428
+    Material material;material83,1456
+    Material material;CB_Per_Object::material83,1456
+struct Input {Input86,1483
+    bool left;left87,1498
+    bool left;Input::left87,1498
+    bool right;right88,1513
+    bool right;Input::right88,1513
+    bool up;up89,1529
+    bool up;Input::up89,1529
+    bool down;down90,1542
+    bool down;Input::down90,1542
+    POINT last_cursor;last_cursor91,1557
+    POINT last_cursor;Input::last_cursor91,1557
+struct Mesh_Data {Mesh_Data94,1584
+    std::vector<float> vertices;vertices95,1603
+    std::vector<float> vertices;Mesh_Data::vertices95,1603
+    std::vector<uint32_t> indices;indices96,1636
+    std::vector<uint32_t> indices;Mesh_Data::indices96,1636
+    XMFLOAT3 origin;origin97,1671
+    XMFLOAT3 origin;Mesh_Data::origin97,1671
+float camera_pitch;camera_pitch100,1696
+float camera_yaw;camera_yaw101,1716
+float camera_radius = 3.0f;camera_radius102,1734
+const int TARGET_FPS = 30;TARGET_FPS104,1763
+int WINDOW_WIDTH = 1280;WINDOW_WIDTH106,1791
+int WINDOW_HEIGHT = 720;WINDOW_HEIGHT107,1816
+bool window_should_close;window_should_close108,1841
+Mesh_Data load_mesh(const char *filename) {load_mesh110,1868
+float clamp(float val, float minval, float maxval) {clamp199,4906
+LARGE_INTEGER performance_frequency;performance_frequency206,5083
+inline float win32_get_seconds_elapsed(LARGE_INTEGER start, LARGE_INTEGER end) {win32_get_seconds_elapsed207,5120
+inline LARGE_INTEGER win32_get_wall_clock() {win32_get_wall_clock211,5321
+LRESULT CALLBACK main_window_callback(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {main_window_callback218,5454
+void win32_process_pending_messages(Input *input) {win32_process_pending_messages232,5780
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR cmd_line, int cmd_show) {WinMain272,7029
